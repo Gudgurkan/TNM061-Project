@@ -1,0 +1,81 @@
+GIT
+---------------------------------------------------------------------------------------------
+http://rogerdudler.github.io/git-guide/
+http://ionrails.com/2009/08/07/git-commands-adding-and-committing-cheatsheet/
+http://git-scm.com/book/en/Getting-Started-Git-Basics
+
+OPENGL
+---------------------------------------------------------------------------------------------
+http://webstaff.itn.liu.se/~sasgo26/TNM046/labbar_2013.htm
+http://www.opengl-tutorial.org/
+
+
+
+
+COMMIT
+---------------------------------------------------------------------------------------------
+Think of a commit as a snapshot of your project — code, files, everything — at a particular 
+point in time. After your first commit git will only save the files that have changed, thus saving space.
+
+git add README
+# Stages your README file, adding it to the list of files to be committed
+
+git commit -m 'first commit'
+# Commits your files, adding the message "first commit"
+
+
+PUSH
+---------------------------------------------------------------------------------------------
+A remote is a repository stored on another computer, 
+
+git remote add origin https://github.com/Gudgurkan/TNM061-Project.git
+# Creates a remote named "origin" pointing at your GitHub repository
+
+git push origin master
+# Sends your commits in the "master" branch to GitHub
+
+FETCH
+---------------------------------------------------------------------------------------------
+git remote add upstream https://github.com/octocat/Spoon-Knife.git
+# Assigns the original repository to a remote called "upstream"
+
+git fetch upstream
+# Pulls in changes not present in your local repository, without modifying your files
+
+git merge upstream/master
+# Merges any changes fetched into your working files
+
+
+BRANCH
+---------------------------------------------------------------------------------------------
+git branch mybranch
+# Creates a new branch called "mybranch"
+
+git checkout mybranch
+# Makes "mybranch" the active branch
+
+Alternatively, you can use the shortcut:
+
+git checkout -b mybranch
+# Creates a new branch called "mybranch" and makes it the active branch
+
+To switch between branches, use git checkout.
+
+git checkout master
+# Makes "master" the active branch
+
+git checkout mybranch
+# Makes "mybranch" the active branch
+
+Once you're finished working on your branch and are ready to combine it back into the master branch, use merge.
+
+git checkout master
+# Makes "master" the active branch
+
+git merge mybranch
+# Merges the commits from "mybranch" into "master"
+
+git branch -d mybranch
+# Deletes the "mybranch" branch
+
+
