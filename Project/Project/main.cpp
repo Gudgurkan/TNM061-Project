@@ -1,11 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <GL/glew.h>
 #include <GL/glfw.h>
+#include <glm/glm.hpp>
+
+
+int width, height;
+GLuint vertexArrayID, vertexBufferID, indexBufferID;
 
 void setupViewport(){
-	int width, height;
-	GLuint vertexArrayID, vertexBufferID, indexBufferID;
 
 	glfwGetWindowSize(&width, &height);
 	glViewport(0,0,width,height);
@@ -19,8 +23,29 @@ void setupViewport(){
 	static const GLuint index_array_data[] = {
 		0,1,2
 	};
+	
+	glGenVertexArrays(1, &vertexArrayID); //generate 1 VAO, put resulting identifier in vertexArrayID
+	glGenBuffers(1, &vertexBufferID); //generate 1 buffer, put resulting identifier in vertexBufferID
+	glGenBuffers(1, &indexBufferID); //generate 1 buffer, put resulting identifier in indexBufferID
 
+	glBindVertexArray(vertexArrayID);//activate the vertex array object
+	
+	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID); //Activate the vertex buffer object
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_array_data), vertex_array_data, GL_STATIC_DRAW); //Present our vertex coordiantes to OpenGL
+	glEnableVertexAttribArray(0); //Enable vertex attribute array 0 to send it to the shader.
+	glVertexAttribPointer(
+		0,                  // attribute. No particular reason for 0, but must match the layout in the shader.
+		3,                  // size
+		GL_FLOAT,           // type
+		GL_FALSE,           // normalized?
+		0,                  // stride
+		(void*)0            // array buffer offset
+	);
 
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferID); //Activate the index buffer object
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(index_array_data), index_array_data, GL_STATIC_DRAW); //Present out vertex indices to OpenGL
+	
+	glBindVertexArray(0); //Deactivate the vertex array object again to be nice
 }
 
 int main()
@@ -42,6 +67,9 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		//Rendering code
+		//Activate the vertex array object we want to draw
+		glBindVertexArray(vertexArrayID);
+		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, (void*)0);
 
 		glfwSwapBuffers();
 		if(glfwGetKey(GLFW_KEY_ESC) || !glfwGetWindowParam(GLFW_OPENED)){
