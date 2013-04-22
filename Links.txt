@@ -4,12 +4,17 @@ http://rogerdudler.github.io/git-guide/
 http://ionrails.com/2009/08/07/git-commands-adding-and-committing-cheatsheet/
 http://git-scm.com/book/en/Getting-Started-Git-Basics
 
+
 OPENGL
 ---------------------------------------------------------------------------------------------
 http://webstaff.itn.liu.se/~sasgo26/TNM046/labbar_2013.htm
 http://www.opengl-tutorial.org/
 
 
+INCLUDE
+---------------------------------------------------------------------------------------------
+Högerklick på projektet->properties->Configuration properties->linker->input->Additional Dependencies
+opengl32.lib;glfw.lib;glew32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib
 
 
 COMMIT
