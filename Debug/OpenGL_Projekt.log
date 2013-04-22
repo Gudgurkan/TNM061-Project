@@ -1,17 +1,30 @@
-﻿Build started 2013-04-19 13:26:13.
-     1>Project "H:\TNM061\Visual Express\OpenGL_Projekt\OpenGL_Projekt.vcxproj" on node 2 (build target(s)).
+﻿Build started 2013-04-22 09:23:52.
+     1>Project "H:\TNM061\PROJEKT\OpenGL_Projekt.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\OpenGL_Projekt.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         All outputs are up-to-date.
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Iopengl32.lib /Iglfw.lib /Iglew32.lib /Ikernel32.lib /Iuser32.lib /Igdi32.lib /Iwinspool.lib /Icomdlg32.lib /Iadvapi32.lib /Ishell32.lib /Iole32.lib /Ioleaut32.lib /Iuuid.lib /Iodbc32.lib /Iodbccp32.lib /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Main.cpp
+         Main.cpp
        Link:
-         All outputs are up-to-date.
-         OpenGL_Projekt.vcxproj -> H:\TNM061\Visual Express\OpenGL_Projekt\Debug\OpenGL_Projekt.exe
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"H:\TNM061\PROJEKT\Debug\OpenGL_Projekt.exe" /NOLOGO opengl32.lib glfw.lib glew32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\OpenGL_Projekt.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"H:\TNM061\PROJEKT\Debug\OpenGL_Projekt.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"H:\TNM061\PROJEKT\Debug\OpenGL_Projekt.lib" /MACHINE:X86 Debug\controls.obj
+         Debug\objloader.obj
+         Debug\quaternion_utils.obj
+         Debug\shader.obj
+         Debug\tangentspace.obj
+         Debug\text2D.obj
+         Debug\texture.obj
+         Debug\vboindexer.obj
+         Debug\Main.obj
+         LINK : H:\TNM061\PROJEKT\Debug\OpenGL_Projekt.exe not found or not built by the last incremental link; performing full link
+     1>LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+         OpenGL_Projekt.vcxproj -> H:\TNM061\PROJEKT\Debug\OpenGL_Projekt.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"H:\TNM061\PROJEKT\Debug\OpenGL_Projekt.exe;#1" /manifest Debug\OpenGL_Projekt.exe.intermediate.manifest
        FinalizeBuildStatus:
          Deleting file "Debug\OpenGL_Projekt.unsuccessfulbuild".
          Touching "Debug\OpenGL_Projekt.lastbuildstate".
-     1>Done Building Project "H:\TNM061\Visual Express\OpenGL_Projekt\OpenGL_Projekt.vcxproj" (build target(s)).
+     1>Done Building Project "H:\TNM061\PROJEKT\OpenGL_Projekt.vcxproj" (build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.44
+Time Elapsed 00:00:06.26

@@ -20,6 +20,9 @@ point in time. After your first commit git will only save the files that have ch
 git add README
 # Stages your README file, adding it to the list of files to be committed
 
+git add -A
+#Adds all the files
+
 git commit -m 'first commit'
 # Commits your files, adding the message "first commit"
 
@@ -36,7 +39,7 @@ git push origin master
 
 FETCH
 ---------------------------------------------------------------------------------------------
-git remote add upstream https://github.com/octocat/Spoon-Knife.git
+git remote add upstream https://github.com/Gudgurkan/TNM061-Project.git
 # Assigns the original repository to a remote called "upstream"
 
 git fetch upstream

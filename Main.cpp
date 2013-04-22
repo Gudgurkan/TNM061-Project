@@ -1,14 +1,14 @@
-// Include standard headers
+// Include standard headers, used to display messages in console
 #include <stdio.h>
 #include <stdlib.h>
 
 // Include GLEW
 #include <GL/glew.h>
 
-// Include GLFW
+// Include GLFW, window and keyboard
 #include <GL/glfw.h>
 
-// Include GLM
+// Include GLM, 3D mathematics
 #include <glm/glm.hpp>
 using namespace glm;
 
@@ -23,8 +23,8 @@ int main( void )
 		return -1;
 	}
 
-	glfwOpenWindowHint(GLFW_FSAA_SAMPLES, 4);
-	glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
+	glfwOpenWindowHint(GLFW_FSAA_SAMPLES, 4); //4x antialiasing
+	glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3); //We're using OpenGL version 3.3
 	glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 3);
 	glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
@@ -43,42 +43,41 @@ int main( void )
 		return -1;
 	}
 
-	glfwSetWindowTitle( "DET E DAGS ATT DDDDDD DUELERA" );
+	glfwSetWindowTitle( "DET E DAGS ATT D-D-D-D-D-DUELERA" );
 
 	// Ensure we can capture the escape key being pressed below
 	glfwEnable( GLFW_STICKY_KEYS );
 
-	// Dark blue background
-	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+	// Background color
+	glClearColor(1.0f, 0.0f, 0.4f, 0.0f);
 
-	GLuint VertexArrayID;
-	glGenVertexArrays(1, &VertexArrayID);
+	GLuint VertexArrayID; //Creates an array that will contain triangles to be rendered
+	glGenVertexArrays(1, &VertexArrayID); //Makes the array to and VertexArray that can contain vertices
 	glBindVertexArray(VertexArrayID);
 
 	// Create and compile our GLSL program from the shaders
 	GLuint programID = LoadShaders( "SimpleVertexShader.vertexshader", "SimpleFragmentShader.fragmentshader" );
 
-
+	//Screen coordinates: 0,0 middle, (1,1) top right corner, (-1,-1) bottom left corner etc. 
 	static const GLfloat g_vertex_buffer_data[] = { 
 		-1.0f, -1.0f, 0.0f,
 		 1.0f, -1.0f, 0.0f,
 		 0.0f,  1.0f, 0.0f,
 	};
 
-	GLuint vertexbuffer;
-	glGenBuffers(1, &vertexbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+	GLuint vertexbuffer; // This will identify our vertex buffer
+	glGenBuffers(1, &vertexbuffer); // Generate 1 buffer, put the resulting identifier in vertexbuffer
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer); // The following commands will talk about our 'vertexbuffer' buffer
+	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW); // Give our vertices to OpenGL.
 
-	do{
-
+	do{ //MAIN LOOP
 		// Clear the screen
 		glClear( GL_COLOR_BUFFER_BIT );
 
 		// Use our shader
 		glUseProgram(programID);
 
-		// 1rst attribute buffer : vertices
+		// 1st attribute buffer : vertices
 		glEnableVertexAttribArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
 		glVertexAttribPointer(
