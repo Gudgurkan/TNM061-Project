@@ -1,0 +1,10 @@
+SHADERS
+---------------------------------------
+In the simplest possible configuration, you will need two shaders : 
+one called Vertex Shader, which will be executed for each vertex, 
+and one called Fragment Shader, which will be executed for each sample.
+
+Shaders are programmed in a language called GLSL : GL Shader Language, 
+which is part of OpenGL. Unlike C or Java, GLSL has to be compiled at 
+run time, which means that each and every time you launch your application, 
+all your shaders are recompiled.
