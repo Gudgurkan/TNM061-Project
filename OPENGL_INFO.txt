@@ -8,3 +8,29 @@ Shaders are programmed in a language called GLSL : GL Shader Language,
 which is part of OpenGL. Unlike C or Java, GLSL has to be compiled at 
 run time, which means that each and every time you launch your application, 
 all your shaders are recompiled.
+
+VERTEX BUFFER
+---------------------------------------
+Drawing in OpenGL is generally performed by sending vertex coordinates
+and triangle lists in large chunks to the GPU. This is done by lling 
+arrays with data and using special functions to copy that data to
+vertex buffers. This is not terribly convenient for the programmer, 
+but it is fast and ecient for the GPU, because all the data is sent in
+one go, and it is copied to the GPU memory to speed up the drawing and 
+enable effcient repeated rendering of the same object in many consecutive frames
+
+A vertex buffer consists of a sequence of vectors, packed together in sequence as a
+linear array of float numbers. OpenGL defnes its own datatype called GLfloat, but
+on all modern platforms it is merely a synonym for float, and you may use either type
+10 interchangeably in your code
+
+1. Create a vertex array object (VAO) to refer to your geometry
+2. Activate ("bind") the vertex array object
+3. Create a vertex buer and an index buer
+4. Activate ("bind") the vertex buer and index buer objects
+5. Create data arrays that describe your 3D geometry
+6. Connect the data arrays to the OpenGL buer objects
+7. Possibly repeat steps 1 through 6 to specify more objects for the scene
+8. Activate the vertex array object you want to draw ("bind" it again)
+9. Issue a drawing command to the GPU
+10.Possibly repeat steps 8 and 9 until the entire scene has been drawn

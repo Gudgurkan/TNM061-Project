@@ -5,8 +5,22 @@
 
 void setupViewport(){
 	int width, height;
+	GLuint vertexArrayID, vertexBufferID, indexBufferID;
+
 	glfwGetWindowSize(&width, &height);
 	glViewport(0,0,width,height);
+
+	static const GLfloat vertex_array_data[] = {
+		-1.0f, -1.0f, 0.0f,	//First vertex xyz
+		1.0f, -1.0f, 0.0f,	//Second vertex
+		0.5f, 1.0f, 0.0f	//Third vertex
+	};
+
+	static const GLuint index_array_data[] = {
+		0,1,2
+	};
+
+
 }
 
 int main()
