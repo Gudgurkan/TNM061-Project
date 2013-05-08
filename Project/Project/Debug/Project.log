@@ -1,4 +1,4 @@
-﻿Build started 2013-04-22 15:05:33.
+﻿Build started 2013-05-08 14:53:57.
      1>Project "H:\TNM061\PROJEKT\Project\Project\Project.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\Project.unsuccessfulbuild" because "AlwaysCreate" was specified.
@@ -19,4 +19,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.12
+Time Elapsed 00:00:01.61
