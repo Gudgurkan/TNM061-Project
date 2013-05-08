@@ -1,12 +1,17 @@
-﻿Build started 2013-05-08 14:53:57.
+﻿Build started 2013-05-08 15:44:03.
      1>Project "H:\TNM061\PROJEKT\Project\Project\Project.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
-         Creating "Debug\Project.unsuccessfulbuild" because "AlwaysCreate" was specified.
+         Touching "Debug\Project.unsuccessfulbuild".
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt lib\shader.cpp main.cpp
          main.cpp
+     1>h:\tnm061\projekt\project\project\cube.h(1): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+         shader.cpp
+         Generating Code...
        Link:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"H:\TNM061\PROJEKT\Project\Debug\Project.exe" /NOLOGO opengl32.lib glfw.lib glew32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\Project.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"H:\TNM061\PROJEKT\Project\Debug\Project.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"H:\TNM061\PROJEKT\Project\Debug\Project.lib" /MACHINE:X86 Debug\main.obj
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"H:\TNM061\PROJEKT\Project\Debug\Project.exe" /NOLOGO opengl32.lib glfw.lib glew32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\Project.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"H:\TNM061\PROJEKT\Project\Debug\Project.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"H:\TNM061\PROJEKT\Project\Debug\Project.lib" /MACHINE:X86 Debug\Cube.obj
+         Debug\shader.obj
+         Debug\main.obj
          LINK : H:\TNM061\PROJEKT\Project\Debug\Project.exe not found or not built by the last incremental link; performing full link
      1>LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
          Project.vcxproj -> H:\TNM061\PROJEKT\Project\Debug\Project.exe
@@ -19,4 +24,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.61
+Time Elapsed 00:00:02.89
