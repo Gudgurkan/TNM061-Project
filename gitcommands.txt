@@ -1,0 +1,72 @@
+//steg 1 config
+git config --global user.name "antonosterblad"
+# Sets the default name for git to use when you commit
+
+git config --global user.email "antos600@student.liu.se"
+# Sets the default email for git to use when you commit
+
+
+//steg 2 cd
+cd H:/TNM061/TNM061-Project
+cd ~/Hello-World
+# Changes the current working directory to your newly created directory
+
+
+//steg 3 init
+git init
+# Sets up the necessary Git files
+
+//steg 4
+git pull
+git merge
+
+
+mkdir ~/Hello-World
+# Creates a directory for your project called "Hello-World" in your user directory
+
+# Initialized empty Git repository in /Users/you/Hello-World/.git/
+
+touch README
+# Creates a file called "README" in your Hello-World directory
+
+git add README
+# Stages your README file, adding it to the list of files to be committed
+
+
+git remote add origin https://github.com/username/Hello-World.git
+# Creates a remote named "origin" pointing at your GitHub repository
+
+
+
+
+
+git remote add upstream https://github.com/octocat/Spoon-Knife.git
+# Assigns the original repository to a remote called "upstream"
+
+git fetch upstream
+# Fetches any new changes from the original repository
+
+git merge upstream/master
+# Merges any changes fetched into your working files
+
+
+git rm filename
+# delete file
+
+git checkout <branch>
+# change brange
+
+
+git commit -m 'first commit'
+# Commits your files, adding the message "first commit"
+
+git push origin <branch>
+# Sends your commits in the "branch" to GitHub
+
+
+
+
+
+add
+commit
+push
