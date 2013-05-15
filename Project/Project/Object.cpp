@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <string>
-#include <vector>
 #include <iostream>
 #include <fstream>
 #include <algorithm>
@@ -9,11 +8,29 @@ using namespace std;
 #include <stdlib.h>
 #include <string.h>
 #include <GL/glew.h>
-#include "Renderclass.h"
+#include "Object.h"
 #include "Cube.h"
 
 
-void Renderclass::RenderObject(GLuint vertexbuffer, GLuint colorbuffer)
+Object::Object(vector<glm::vec3> v, vector<glm::vec2> u, vector<glm::vec3> n)
+{
+	vertices = v;
+	uvs = u;
+	normals = n;
+}
+
+void Object::BindBuffers()
+{
+	glGenBuffers(1, &vertexbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
+
+	glGenBuffers(1, &colorbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
+	glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &uvs[0], GL_STATIC_DRAW);
+}
+
+void Object::RenderObject()
 {
 	// 1st attribute buffer
 	glEnableVertexAttribArray(0);
@@ -45,8 +62,14 @@ void Renderclass::RenderObject(GLuint vertexbuffer, GLuint colorbuffer)
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);	
 }
+
+void Object::deleteBuffers()
+{
+	glDeleteBuffers(1, &vertexbuffer);
+	glDeleteBuffers(1, &colorbuffer);
+}
 	
-void Renderclass::brutalBuffer(GLuint vertexbuffer, GLuint colorbuffer)
+void Object::brutalBuffer(GLuint vertexbuffer, GLuint colorbuffer)
 {
 	//Buffer for vertices
 	glGenBuffers(1, &vertexbuffer);
@@ -58,3 +81,4 @@ void Renderclass::brutalBuffer(GLuint vertexbuffer, GLuint colorbuffer)
 	glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);
 }
+

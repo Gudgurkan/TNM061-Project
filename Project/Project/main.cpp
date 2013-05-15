@@ -10,7 +10,7 @@
 #include "Cube.h"
 #include <vector>
 #include "lib/Objectloader.hpp"
-#include "Renderclass.h"
+#include "Object.h"
 
 using namespace glm;
 
@@ -75,44 +75,15 @@ int main ()
 	std::vector<vec3> normals;
 	bool res = loadObject("cube.obj", vertices, uvs, normals);
 
-	/*GLuint vertexbuffer;
-	GLuint colorbuffer;
-
-	Renderclass bufferTo;
-	bufferTo.brutalBuffer(vertexbuffer, colorbuffer);*/
-
-	
-	//Buffer for vertices
-	GLuint vertexbuffer;
-	glGenBuffers(1, &vertexbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
-
-	GLuint colorbuffer;
-	glGenBuffers(1, &colorbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
-	glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &uvs[0], GL_STATIC_DRAW);
-
-	////Buffer for vertices
-	//GLuint vertexbuffer;
-	//glGenBuffers(1, &vertexbuffer);
-	//glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
-
-	////Buffer for colors at every vertex
-	//GLuint colorbuffer;
-	//glGenBuffers(1, &colorbuffer);
-	//glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);
-
+	Object renderObjectInstance(vertices, uvs, normals);			// DET BALLAR UR!
+	renderObjectInstance.BindBuffers();
 
 	do{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the screen
 		glUseProgram(programID); // Use our shader
 		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]); // Send our transformation to the currently bound shader, in the "MVP" uniform
-		
-		Renderclass renderObjectInstance;			// DET BALLAR UR!	
-		renderObjectInstance.RenderObject(vertexbuffer, colorbuffer);
+			
+		renderObjectInstance.RenderObject();
 
 		glfwSwapBuffers(); // Swap buffers, used for double buffering. Very nice.
 
@@ -120,8 +91,7 @@ int main ()
 	while( glfwGetKey( GLFW_KEY_ESC ) != GLFW_PRESS && glfwGetWindowParam( GLFW_OPENED ) );
 
 	// Cleanup VBO and shader
-	glDeleteBuffers(1, &vertexbuffer);
-	glDeleteBuffers(1, &colorbuffer);
+	renderObjectInstance.deleteBuffers();
 	glDeleteProgram(programID);
 	//glDeleteVertexArrays(1, &VertexArrayID);
 
