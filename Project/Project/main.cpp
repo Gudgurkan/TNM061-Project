@@ -10,6 +10,7 @@
 #include "Cube.h"
 #include <vector>
 #include "lib/Objectloader.hpp"
+#include "Renderclass.h"
 
 using namespace glm;
 
@@ -74,6 +75,13 @@ int main ()
 	std::vector<vec3> normals;
 	bool res = loadObject("cube.obj", vertices, uvs, normals);
 
+	/*GLuint vertexbuffer;
+	GLuint colorbuffer;
+
+	Renderclass bufferTo;
+	bufferTo.brutalBuffer(vertexbuffer, colorbuffer);*/
+
+	
 	//Buffer for vertices
 	GLuint vertexbuffer;
 	glGenBuffers(1, &vertexbuffer);
@@ -103,35 +111,8 @@ int main ()
 		glUseProgram(programID); // Use our shader
 		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]); // Send our transformation to the currently bound shader, in the "MVP" uniform
 		
-		// 1st attribute buffer
-		glEnableVertexAttribArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-		glVertexAttribPointer(  //Contains data from the previously provided pointer
-			0,                  // attribute. No particular reason for 0, but must match the layout in the shader.
-			3,                  // size
-			GL_FLOAT,           // type
-			GL_FALSE,           // normalized?
-			0,                  // stride
-			(void*)0            // array buffer offset
-		);
-
-		// 2nd attribute buffer : colors
-		glEnableVertexAttribArray(1);
-		glBindBuffer(GL_ARRAY_BUFFER, colorbuffer); //Colorbuffer has been bound to the buffer earlier
-		glVertexAttribPointer(
-			1,                                // attribute
-			2,                                // size
-			GL_FLOAT,                         // type
-			GL_FALSE,                         // normalized?
-			0,                                // stride
-			(void*)0                          // array buffer offset
-		);
-
-		//DRAW
-		glDrawArrays(GL_TRIANGLES, 0, 12*3); // 12*3 indices starting at 0 -> 12 triangles
-
-		glDisableVertexAttribArray(0);
-		glDisableVertexAttribArray(1);
+		Renderclass renderObjectInstance;			// DET BALLAR UR!	
+		renderObjectInstance.RenderObject(vertexbuffer, colorbuffer);
 
 		glfwSwapBuffers(); // Swap buffers, used for double buffering. Very nice.
 

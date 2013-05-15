@@ -65,11 +65,13 @@
     <ClCompile Include="lib\Objectloader.cpp" />
     <ClCompile Include="lib\shader.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Renderclass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cube.h" />
     <ClInclude Include="lib\Objectloader.hpp" />
     <ClInclude Include="lib\shader.hpp" />
+    <ClInclude Include="Renderclass.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
