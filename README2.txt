@@ -1,1 +1,1 @@
-fan
+Ta bort!
