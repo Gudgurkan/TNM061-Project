@@ -82,6 +82,10 @@ int main ()
 	Object cube("cube.obj");
 	cube.BindBuffers();
 
+	//Add turd object
+	Object cubeLight("cube.obj");
+	cubeLight.BindBuffers();
+
 	//Add floor
 	Object floor("floor.obj");
 	floor.BindBuffers();
@@ -93,11 +97,14 @@ int main ()
 	// Get a handle for our "LightPosition" uniform
 	glUseProgram(programID);
 	GLuint LightID = glGetUniformLocation(programID, "LightPosition_worldspace");
+	GLuint LightID2 = glGetUniformLocation(programID, "LightPosition_worldspace2");
 
 	//Color position
-	//vec3 lightPos = vec3(4,4,4);
-	//glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
+	vec3 lightPos2 = vec3(3.0,1.0,2.0);
+	glUniform3f(LightID2, lightPos2.x, lightPos2.y, lightPos2.z);
+
 	float n = 0;
+
 	do{
 		n += 0.01;
 
