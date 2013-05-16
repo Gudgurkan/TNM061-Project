@@ -62,6 +62,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="lib\controls.cpp" />
+    <ClCompile Include="lib\moveLight.cpp" />
     <ClCompile Include="lib\Objectloader.cpp" />
     <ClCompile Include="lib\shader.cpp" />
     <ClCompile Include="main.cpp" />
@@ -69,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\controls.hpp" />
+    <ClInclude Include="lib\moveLight.h" />
     <ClInclude Include="lib\Objectloader.hpp" />
     <ClInclude Include="lib\shader.hpp" />
     <ClInclude Include="Object.h" />

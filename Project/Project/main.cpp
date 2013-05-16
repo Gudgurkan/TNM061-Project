@@ -12,6 +12,7 @@
 #include "lib/Objectloader.hpp"
 #include "lib/controls.hpp"
 #include "Object.h"
+#include "lib/moveLight.h"
 
 using namespace glm;
 
@@ -89,10 +90,16 @@ int main ()
 	GLuint LightID = glGetUniformLocation(programID, "LightPosition_worldspace");
 
 	//Color position
-	vec3 lightPos = vec3(4,4,4);
-	glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
-
+	//vec3 lightPos = vec3(4,4,4);
+	//glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
+	float n = 0;
 	do{
+		n += 0.01;
+
+		// The sin and cos-terms make the lightsource feel ALIVE! 
+		glm::vec3 lightPos = computeLightFromInputs() * vec3(1 + sin(n)/10, (1 + (sin(n))/4), 1 + cos(n/2)/100);
+		glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
+
 		updateMatrices();
 		mat4 Projection = getProjectionMatrix();
 		mat4 View = getViewMatrix();
