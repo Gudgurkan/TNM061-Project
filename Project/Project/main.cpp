@@ -63,7 +63,7 @@ int main ()
 	//Set parametres for program
 	glfwSetWindowTitle( "Lightning Demo" );
 	glfwEnable( GLFW_STICKY_KEYS );
-	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS); 
 
@@ -82,8 +82,13 @@ int main ()
 	Object cube("cube.obj");
 	cube.BindBuffers();
 
+	//Add floor
+	Object floor("floor.obj");
+	floor.BindBuffers();
+
 	objects.push_back(cylinder);
 	objects.push_back(cube);
+	objects.push_back(floor);
 
 	// Get a handle for our "LightPosition" uniform
 	glUseProgram(programID);
