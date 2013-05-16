@@ -9,13 +9,12 @@ using namespace std;
 #include <string.h>
 #include <GL/glew.h>
 #include "Object.h"
+#include "lib/Objectloader.hpp"
 
 
-Object::Object(vector<glm::vec3> v, vector<glm::vec2> u, vector<glm::vec3> n)
+Object::Object(const char *path)
 {
-	vertices = v;
-	uvs = u;
-	normals = n;
+	bool res = loadObject(path, vertices, uvs, normals);
 }
 
 void Object::BindBuffers()
@@ -72,7 +71,7 @@ void Object::RenderObject()
 	);
 
 	//DRAW
-	glDrawArrays(GL_TRIANGLES, 0, 12*3); // 12*3 indices starting at 0 -> 12 triangles
+	glDrawArrays(GL_TRIANGLES, 0, normals.size()); 
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);

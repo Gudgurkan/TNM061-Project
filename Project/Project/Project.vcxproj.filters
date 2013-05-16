@@ -21,9 +21,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Cube.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
     <ClCompile Include="lib\shader.cpp">
       <Filter>lib</Filter>
     </ClCompile>
@@ -38,9 +35,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Cube.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
     <ClInclude Include="lib\shader.hpp">
       <Filter>lib</Filter>
     </ClInclude>

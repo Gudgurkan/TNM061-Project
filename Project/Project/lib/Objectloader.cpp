@@ -29,10 +29,11 @@ bool loadObject(
 	vector<glm::vec3> temp_normals;
 
 
-	ifstream myfile ("cube.obj");
+	ifstream myfile (path);
 
     if (myfile.is_open())
     {
+		int count = 0;
         while ( myfile.good() )
         {
 			string index;
@@ -93,7 +94,9 @@ bool loadObject(
 				string temp;
 				getline(myfile, temp);
 			}
+			count++;
         }
+		cout << "Count: " << path << count << endl;
         myfile.close();
 	}
     else

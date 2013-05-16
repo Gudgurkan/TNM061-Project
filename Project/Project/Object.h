@@ -9,9 +9,7 @@ class Object
 	public:
 		//Renderclass(); //Den gillar in constructorerna :S
 		//~Renderclass();
-		Object(	std::vector<glm::vec3>,
-				std::vector<glm::vec2>,
-				std::vector<glm::vec3>);
+		Object(const char *path); //konstruktor
 		GLuint vertexbuffer;
 		GLuint colorbuffer;
 		GLuint normalbuffer;

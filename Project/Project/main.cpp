@@ -7,13 +7,27 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "lib/shader.hpp"
-#include "Cube.h"
 #include <vector>
+#include <algorithm>
 #include "lib/Objectloader.hpp"
 #include "lib/controls.hpp"
 #include "Object.h"
 
 using namespace glm;
+
+//void renderB(Object obj);
+//void deleteB(Object obj);
+//
+
+void renderB(Object &obj)
+{
+	obj.RenderObject();
+}
+
+void deleteB(Object &obj)
+{
+	obj.deleteBuffers();
+}
 
 int main () 
 {
@@ -52,25 +66,23 @@ int main ()
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS); 
 
-	//Prepare the graphics card for a vertex array
-	//GLuint VertexArrayID;
-	//glGenVertexArrays(1, &VertexArrayID);
-	//glBindVertexArray(VertexArrayID);
-
 	GLuint programID = LoadShaders( "TransformVertexShader.vertexshader", "ColorFragmentShader.fragmentshader" ); // Create and compile our GLSL program from the shaders
 	GLuint MatrixID = glGetUniformLocation(programID, "MVP");
 	GLuint ViewMatrixID = glGetUniformLocation(programID, "V");
 	GLuint ModelMatrixID = glGetUniformLocation(programID, "M");
 
-	//Read .obj file
-	std::vector<vec3> vertices;
-	std::vector<vec2> uvs;
-	std::vector<vec3> normals;
-	bool res = loadObject("cube.obj", vertices, uvs, normals);
-	GLuint TextureID  = glGetUniformLocation(programID, "myTextureSampler");
+	std::vector<Object> objects;
 
-	Object renderObjectInstance(vertices, uvs, normals);			// DET BALLAR UR!
-	renderObjectInstance.BindBuffers();
+	//Add first object
+	Object cylinder("cylinder.obj");
+	cylinder.BindBuffers();
+
+	//Add second object
+	Object cube("cube.obj");
+	cube.BindBuffers();
+
+	objects.push_back(cylinder);
+	objects.push_back(cube);
 
 	// Get a handle for our "LightPosition" uniform
 	glUseProgram(programID);
@@ -95,7 +107,7 @@ int main ()
 		glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &Model[0][0]);
 		glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &View[0][0]);
 
-		renderObjectInstance.RenderObject();
+		for_each(objects.begin(), objects.end(), renderB);
 
 		glfwSwapBuffers(); // Swap buffers, used for double buffering. Very nice.
 
@@ -103,7 +115,7 @@ int main ()
 	while( glfwGetKey( GLFW_KEY_ESC ) != GLFW_PRESS && glfwGetWindowParam( GLFW_OPENED ) );
 
 	// Cleanup VBO and shader
-	renderObjectInstance.deleteBuffers();
+	for_each(objects.begin(), objects.end(), deleteB);
 	glDeleteProgram(programID);
 	//glDeleteVertexArrays(1, &VertexArrayID);
 
