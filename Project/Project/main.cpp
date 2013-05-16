@@ -7,13 +7,27 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "lib/shader.hpp"
-#include "Cube.h"
 #include <vector>
+#include <algorithm>
 #include "lib/Objectloader.hpp"
 #include "lib/controls.hpp"
 #include "Object.h"
 
 using namespace glm;
+
+//void renderB(Object obj);
+//void deleteB(Object obj);
+//
+
+void renderB(Object &obj)
+{
+	obj.RenderObject();
+}
+
+void deleteB(Object &obj)
+{
+	obj.deleteBuffers();
+}
 
 int main () 
 {
@@ -52,25 +66,33 @@ int main ()
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS); 
 
-	//Prepare the graphics card for a vertex array
-	//GLuint VertexArrayID;
-	//glGenVertexArrays(1, &VertexArrayID);
-	//glBindVertexArray(VertexArrayID);
-
 	GLuint programID = LoadShaders( "TransformVertexShader.vertexshader", "ColorFragmentShader.fragmentshader" ); // Create and compile our GLSL program from the shaders
-	GLuint MatrixID = glGetUniformLocation(programID, "MVP"); // Get a handle for our "MVP" uniform
+	GLuint MatrixID = glGetUniformLocation(programID, "MVP");
+	GLuint ViewMatrixID = glGetUniformLocation(programID, "V");
+	GLuint ModelMatrixID = glGetUniformLocation(programID, "M");
 
-	//Read .obj file
-	std::vector<vec3> vertices;
-	std::vector<vec2> uvs;
-	std::vector<vec3> normals;
-	bool res = loadObject("cube.obj", vertices, uvs, normals);
+	std::vector<Object> objects;
 
-	Object renderObjectInstance(vertices, uvs, normals);			// DET BALLAR UR!
-	renderObjectInstance.BindBuffers();
+	//Add first object
+	Object cylinder("cylinder.obj");
+	cylinder.BindBuffers();
+
+	//Add second object
+	Object cube("cube.obj");
+	cube.BindBuffers();
+
+	objects.push_back(cylinder);
+	objects.push_back(cube);
+
+	// Get a handle for our "LightPosition" uniform
+	glUseProgram(programID);
+	GLuint LightID = glGetUniformLocation(programID, "LightPosition_worldspace");
+
+	//Color position
+	vec3 lightPos = vec3(4,4,4);
+	glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
 
 	do{
-
 		updateMatrices();
 		mat4 Projection = getProjectionMatrix();
 		mat4 View = getViewMatrix();
@@ -79,9 +101,13 @@ int main ()
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the screen
 		glUseProgram(programID); // Use our shader
-		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]); // Send our transformation to the currently bound shader, in the "MVP" uniform
-			
-		renderObjectInstance.RenderObject();
+
+		// Send our transformation to the currently bound shader, in the "MVP" uniform
+		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]); 
+		glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &Model[0][0]);
+		glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &View[0][0]);
+
+		for_each(objects.begin(), objects.end(), renderB);
 
 		glfwSwapBuffers(); // Swap buffers, used for double buffering. Very nice.
 
@@ -89,7 +115,7 @@ int main ()
 	while( glfwGetKey( GLFW_KEY_ESC ) != GLFW_PRESS && glfwGetWindowParam( GLFW_OPENED ) );
 
 	// Cleanup VBO and shader
-	renderObjectInstance.deleteBuffers();
+	for_each(objects.begin(), objects.end(), deleteB);
 	glDeleteProgram(programID);
 	//glDeleteVertexArrays(1, &VertexArrayID);
 

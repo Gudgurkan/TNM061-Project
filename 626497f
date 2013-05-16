@@ -1,0 +1,58 @@
+[33m3b2ebfa[m HEAD@{0}: checkout: moving from master to 3b2ebfa2077b797087dfafe38fe21c04d563a507
+[33m626497f[m HEAD@{1}: commit: Forstsatt fiffla med ljuset
+[33m54b473d[m HEAD@{2}: commit: Fixade ljuset
+[33m3b2ebfa[m HEAD@{3}: pull origin master: Fast-forward
+[33m990b5fa[m HEAD@{4}: pull origin master: Fast-forward
+[33m7fbae6e[m HEAD@{5}: commit: uppdaterat lite mer
+[33m8d7907b[m HEAD@{6}: commit: uppdaterat lite
+[33mfbfd330[m HEAD@{7}: checkout: moving from master to master
+[33mfbfd330[m HEAD@{8}: merge Oscar: Fast-forward
+[33m5f414cf[m HEAD@{9}: checkout: moving from Oscar to master
+[33mfbfd330[m HEAD@{10}: commit: tut 4 up and running
+[33m679b09e[m HEAD@{11}: commit: foljer sassans tutorial
+[33m6e66920[m HEAD@{12}: checkout: moving from Oscar to Oscar
+[33m6e66920[m HEAD@{13}: commit: Fortsatt med tutorialsen
+[33mf201a29[m HEAD@{14}: commit: Foljer Sassans tut
+[33m8663902[m HEAD@{15}: commit: Foljer Sassans tutorial
+[33mad54275[m HEAD@{16}: checkout: moving from master to Oscar
+[33m5f414cf[m HEAD@{17}: checkout: moving from Oscar to master
+[33mad54275[m HEAD@{18}: commit: tog bort lite filer, la till main etc
+[33m26e7032[m HEAD@{19}: checkout: moving from master to Oscar
+[33m5f414cf[m HEAD@{20}: checkout: moving from Oscar to master
+[33m26e7032[m HEAD@{21}: commit: Borjar om fran borjan pa denna branch
+[33m5f414cf[m HEAD@{22}: merge master: Fast-forward
+[33m68904ee[m HEAD@{23}: checkout: moving from master to Oscar
+[33m5f414cf[m HEAD@{24}: commit: La till saker i Links
+[33m68904ee[m HEAD@{25}: merge Oscar: Fast-forward
+[33mddca6a9[m HEAD@{26}: checkout: moving from Oscar to master
+[33m68904ee[m HEAD@{27}: commit: upp med allt till master
+[33m5bf891a[m HEAD@{28}: commit: Fixade till kommentarer
+[33mfe326c9[m HEAD@{29}: checkout: moving from master to Oscar
+[33mddca6a9[m HEAD@{30}: checkout: moving from Oscar to master
+[33mfe326c9[m HEAD@{31}: commit (merge): fixade till readme
+[33mdb0fc6c[m HEAD@{32}: commit (merge): readme eller vafan
+[33m123daf3[m HEAD@{33}: checkout: moving from master to Oscar
+[33mddca6a9[m HEAD@{34}: commit: jahopp
+[33mbcbde2d[m HEAD@{35}: commit: fixade till branch Oscar
+[33m0b9dbca[m HEAD@{36}: checkout: moving from Oscar to master
+[33m123daf3[m HEAD@{37}: checkout: moving from master to Oscar
+[33m0b9dbca[m HEAD@{38}: pull: Fast-forward
+[33m043d169[m HEAD@{39}: commit: andrade main-filen
+[33md5909e6[m HEAD@{40}: commit: La till alla filer
+[33m38059fa[m HEAD@{41}: pull origin master: Fast-forward
+[33md58b493[m HEAD@{42}: commit: la till en till fil som har en massa info
+[33m4d5c0d2[m HEAD@{43}: commit: La till en rad
+[33m2e2cacd[m HEAD@{44}: pull origin master: Fast-forward
+[33m479340a[m HEAD@{45}: checkout: moving from Oscar to master
+[33m123daf3[m HEAD@{46}: commit: Hej
+[33m479340a[m HEAD@{47}: checkout: moving from master to Oscar
+[33m479340a[m HEAD@{48}: checkout: moving from master to master
+[33m479340a[m HEAD@{49}: checkout: moving from Oscar to master
+[33m479340a[m HEAD@{50}: checkout: moving from Oscar to Oscar
+[33m479340a[m HEAD@{51}: checkout: moving from master to Oscar
+[33m479340a[m HEAD@{52}: checkout: moving from Oscar to master
+[33m479340a[m HEAD@{53}: checkout: moving from master to Oscar
+[33m479340a[m HEAD@{54}: checkout: moving from Oscar to master
+[33m479340a[m HEAD@{55}: checkout: moving from Oscar to Oscar
+[33m479340a[m HEAD@{56}: checkout: moving from master to Oscar
+[33m479340a[m HEAD@{57}: commit (initial): First commit
