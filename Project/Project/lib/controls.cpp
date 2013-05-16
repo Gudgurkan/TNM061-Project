@@ -16,15 +16,16 @@ const vec3 forward = vec3(0, 0, 1);
 // Initial horizontal angle : toward -Z
 float horizontalAngle = 3.14f;
 // Initial vertical angle : none
-float verticalAngle = -3.14f/4;
-
+//float verticalAngle = -3.14f/4;		Mickesprovinkel
+float verticalAngle = -2.0f/4;			// Teodor busar runt i koden
 vec3 direction(
 		0, 
 		sin(verticalAngle),
 		-cos(verticalAngle)
 );
 
-vec3 position = vec3( 0, 6, 6);
+//vec3 position = vec3( 0, 6, 6);		Mickesprovinkel
+vec3 position = vec3( 0, 8, 20);		// Teodor busar runt i koden
 
 
 mat4 getViewMatrix(){

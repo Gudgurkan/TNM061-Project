@@ -85,3 +85,12 @@ void Object::deleteBuffers()
 	glDeleteBuffers(1, &normalbuffer);
 }
 
+void Object::translateObject(float tx, float ty, float tz)
+{	
+	for(int i = 0; i < getNumberOfVertices(); i++)
+	{
+		vertices[i].x = vertices[i].x + tx;
+		vertices[i].y = vertices[i].y + ty;
+		vertices[i].z = vertices[i].z + tz;
+	}
+}

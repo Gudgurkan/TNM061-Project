@@ -17,6 +17,13 @@ bool isSlash (char c)
 		return false;
 }
 
+int numberVertices = 0;
+
+int getNumberOfVertices()
+{
+	return numberVertices;
+}
+
 bool loadObject(
 	const char * path, 
 	vector<glm::vec3> & out_vertices, 
@@ -102,6 +109,9 @@ bool loadObject(
     else
         cout << "Unable to open file";
 
+	//So we can translate it later with our translateObject-function
+	numberVertices = vertexIndices.size();
+
 	// For each vertex of each triangle
 	for( int i=0; i<vertexIndices.size(); i++ ){
 
@@ -121,7 +131,6 @@ bool loadObject(
 		out_normals .push_back(normal);
 	
 	}
-
 
 	return true;
 }

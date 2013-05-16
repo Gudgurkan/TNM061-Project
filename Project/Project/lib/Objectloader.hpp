@@ -10,4 +10,6 @@ bool loadObject(
 	vector<glm::vec3> & out_normals
 );
 
+int getNumberOfVertices();
+
 #endif

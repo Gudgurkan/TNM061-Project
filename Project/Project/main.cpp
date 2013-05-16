@@ -75,11 +75,13 @@ int main ()
 	std::vector<Object> objects;
 
 	//Add first object
-	Object cylinder("cylinder.obj");
+	Object cylinder("cylinder.obj");	
+	cylinder.translateObject(-5.0, -1.0, -1.0);
 	cylinder.BindBuffers();
 
 	//Add second object
 	Object cube("cube.obj");
+	cube.translateObject(0.0, 0.0, 6.0);
 	cube.BindBuffers();
 
 	//Add floor

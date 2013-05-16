@@ -6,9 +6,7 @@
 
 class Object
 {
-	public:
-		//Renderclass(); //Den gillar in constructorerna :S
-		//~Renderclass();
+	public:		
 		Object(const char *path); //konstruktor
 		GLuint vertexbuffer;
 		GLuint colorbuffer;
@@ -18,7 +16,10 @@ class Object
 		void BindBuffers();
 		void deleteBuffers();
 
+		void translateObject(float x, float y, float z);
+
 	private:
+		int sizeVertices;
 		std::vector<glm::vec3> vertices;
 		std::vector<glm::vec2> uvs;
 		std::vector<glm::vec3> normals;

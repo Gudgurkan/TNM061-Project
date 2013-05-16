@@ -7,7 +7,7 @@
 using namespace glm;
 
 //Movementspeed of the lightsource
-float lightSpeed = 1.0f;
+float lightSpeed = 2.0f;
 
 //Starting position of lightsource
 float x = 4;
