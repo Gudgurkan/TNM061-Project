@@ -9,7 +9,6 @@ using namespace std;
 #include <string.h>
 #include <GL/glew.h>
 #include "Object.h"
-#include "Cube.h"
 
 
 Object::Object(vector<glm::vec3> v, vector<glm::vec2> u, vector<glm::vec3> n)
@@ -28,6 +27,10 @@ void Object::BindBuffers()
 	glGenBuffers(1, &colorbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
 	glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &uvs[0], GL_STATIC_DRAW);
+
+	glGenBuffers(1, &normalbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, normalbuffer);
+	glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals[0], GL_STATIC_DRAW);
 }
 
 void Object::RenderObject()
@@ -56,29 +59,30 @@ void Object::RenderObject()
 		(void*)0                          // array buffer offset
 	);
 
+	// 3rd attribute buffer : normals
+	glEnableVertexAttribArray(2);
+	glBindBuffer(GL_ARRAY_BUFFER, normalbuffer);
+	glVertexAttribPointer(
+		2,                                // attribute
+		3,                                // size
+		GL_FLOAT,                         // type
+		GL_FALSE,                         // normalized?
+		0,                                // stride
+		(void*)0                          // array buffer offset
+	);
+
 	//DRAW
 	glDrawArrays(GL_TRIANGLES, 0, 12*3); // 12*3 indices starting at 0 -> 12 triangles
 
 	glDisableVertexAttribArray(0);
-	glDisableVertexAttribArray(1);	
+	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(2);	
 }
 
 void Object::deleteBuffers()
 {
 	glDeleteBuffers(1, &vertexbuffer);
 	glDeleteBuffers(1, &colorbuffer);
-}
-	
-void Object::brutalBuffer(GLuint vertexbuffer, GLuint colorbuffer)
-{
-	//Buffer for vertices
-	glGenBuffers(1, &vertexbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
-
-	//Buffer for colors at every vertex
-	glGenBuffers(1, &colorbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);
+	glDeleteBuffers(1, &normalbuffer);
 }
 

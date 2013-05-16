@@ -58,7 +58,9 @@ int main ()
 	//glBindVertexArray(VertexArrayID);
 
 	GLuint programID = LoadShaders( "TransformVertexShader.vertexshader", "ColorFragmentShader.fragmentshader" ); // Create and compile our GLSL program from the shaders
-	GLuint MatrixID = glGetUniformLocation(programID, "MVP"); // Get a handle for our "MVP" uniform
+	GLuint MatrixID = glGetUniformLocation(programID, "MVP");
+	GLuint ViewMatrixID = glGetUniformLocation(programID, "V");
+	GLuint ModelMatrixID = glGetUniformLocation(programID, "M");
 
 	//Read .obj file
 	std::vector<vec3> vertices;
@@ -69,8 +71,15 @@ int main ()
 	Object renderObjectInstance(vertices, uvs, normals);			// DET BALLAR UR!
 	renderObjectInstance.BindBuffers();
 
-	do{
+	// Get a handle for our "LightPosition" uniform
+	glUseProgram(programID);
+	GLuint LightID = glGetUniformLocation(programID, "LightPosition_worldspace");
 
+	//Color position
+	vec3 lightPos = vec3(4,4,4);
+	glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
+
+	do{
 		updateMatrices();
 		mat4 Projection = getProjectionMatrix();
 		mat4 View = getViewMatrix();
@@ -79,8 +88,12 @@ int main ()
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the screen
 		glUseProgram(programID); // Use our shader
-		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]); // Send our transformation to the currently bound shader, in the "MVP" uniform
-			
+
+		// Send our transformation to the currently bound shader, in the "MVP" uniform
+		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]); 
+		glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &Model[0][0]);
+		glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &View[0][0]);
+
 		renderObjectInstance.RenderObject();
 
 		glfwSwapBuffers(); // Swap buffers, used for double buffering. Very nice.

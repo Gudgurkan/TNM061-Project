@@ -14,9 +14,9 @@ class Object
 				std::vector<glm::vec3>);
 		GLuint vertexbuffer;
 		GLuint colorbuffer;
+		GLuint normalbuffer;
 				
 		void RenderObject();
-		void brutalBuffer(GLuint vbuffer, GLuint cbuffer);
 		void BindBuffers();
 		void deleteBuffers();
 
