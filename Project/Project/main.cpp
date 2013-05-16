@@ -10,6 +10,7 @@
 #include "Cube.h"
 #include <vector>
 #include "lib/Objectloader.hpp"
+#include "lib/controls.hpp"
 #include "Object.h"
 
 using namespace glm;
@@ -58,16 +59,6 @@ int main ()
 
 	GLuint programID = LoadShaders( "TransformVertexShader.vertexshader", "ColorFragmentShader.fragmentshader" ); // Create and compile our GLSL program from the shaders
 	GLuint MatrixID = glGetUniformLocation(programID, "MVP"); // Get a handle for our "MVP" uniform
-	glm::mat4 Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f); // Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
-
-	// Camera matrix
-	glm::mat4 View = glm::lookAt(
-		glm::vec3(4,3,-3), // Camera is at (4,3,-3), in World Space
-		glm::vec3(0,0,0), // and looks at the origin
-		glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
-	);
-	glm::mat4 Model      = glm::mat4(1.0f); // Model matrix : an identity matrix (model will be at the origin)
-	glm::mat4 MVP        = Projection * View * Model; // Our ModelViewProjection : multiplication of our 3 matrices
 
 	//Read .obj file
 	std::vector<vec3> vertices;
@@ -79,6 +70,13 @@ int main ()
 	renderObjectInstance.BindBuffers();
 
 	do{
+
+		updateMatrices();
+		mat4 Projection = getProjectionMatrix();
+		mat4 View = getViewMatrix();
+		mat4 Model      = mat4(1.0f); // Model matrix : an identity matrix (model will be at the origin)
+		mat4 MVP = Projection * View * Model; // Our ModelViewProjection : multiplication of our 3 matrices
+
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the screen
 		glUseProgram(programID); // Use our shader
 		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]); // Send our transformation to the currently bound shader, in the "MVP" uniform
