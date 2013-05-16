@@ -67,6 +67,7 @@ int main ()
 	std::vector<vec2> uvs;
 	std::vector<vec3> normals;
 	bool res = loadObject("cube.obj", vertices, uvs, normals);
+	GLuint TextureID  = glGetUniformLocation(programID, "myTextureSampler");
 
 	Object renderObjectInstance(vertices, uvs, normals);			// DET BALLAR UR!
 	renderObjectInstance.BindBuffers();
