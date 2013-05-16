@@ -7,12 +7,13 @@
 using namespace glm;
 
 //Movementspeed of the lightsource
-float lightSpeed = 0.05f;
+float lightSpeed = 1.0f;
 
 //Starting position of lightsource
 float x = 4;
 float y = 0.5;
 float z = 4;
+float n = 0;
 
 vec3 computeLightFromInputs(){
 
@@ -24,22 +25,29 @@ vec3 computeLightFromInputs(){
 		
 	// Move light in z-axis
 	if (glfwGetKey( GLFW_KEY_UP ) == GLFW_PRESS){
-		z += lightSpeed;
+		z -= lightSpeed*deltaTime;
 	}
 	// Move light in z-axis
 	if (glfwGetKey( GLFW_KEY_DOWN ) == GLFW_PRESS){
-		z -= lightSpeed;
+		z += lightSpeed*deltaTime;
 	}
 	// Move light in x-axis
 	if (glfwGetKey( GLFW_KEY_RIGHT ) == GLFW_PRESS){
-		x -= lightSpeed;
+		x += lightSpeed*deltaTime;
 	}
 	// Move light in x-axis
 	if (glfwGetKey( GLFW_KEY_LEFT ) == GLFW_PRESS){
-		x += lightSpeed;
+		x -= lightSpeed*deltaTime;
 	}
 	
 	lastTime = currentTime;
 
 	return vec3(x,y,z);
+}
+
+vec3 addCircularMotion()
+{	
+	n += 0.01;	
+
+	return vec3(1 + sin(n)/40, (1 + (sin(n))/4), 1 + cos(n)/40);
 }

@@ -4,5 +4,6 @@
 using namespace glm;
 
 vec3 computeLightFromInputs();
+vec3 addCircularMotion();
 
 #endif

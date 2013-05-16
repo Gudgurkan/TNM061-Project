@@ -93,16 +93,11 @@ int main ()
 	// Get a handle for our "LightPosition" uniform
 	glUseProgram(programID);
 	GLuint LightID = glGetUniformLocation(programID, "LightPosition_worldspace");
-
-	//Color position
-	//vec3 lightPos = vec3(4,4,4);
-	//glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
-	float n = 0;
-	do{
-		n += 0.01;
+	
+	do{	
 
 		// The sin and cos-terms make the lightsource feel ALIVE! 
-		glm::vec3 lightPos = computeLightFromInputs() * vec3(1 + sin(n)/10, (1 + (sin(n))/4), 1 + cos(n/2)/100);
+		glm::vec3 lightPos = computeLightFromInputs() * addCircularMotion();
 		glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
 
 		updateMatrices();
