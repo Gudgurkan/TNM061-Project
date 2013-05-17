@@ -47,7 +47,7 @@ vec3 computeLightFromInputs(){
 
 vec3 addCircularMotion()
 {	
-	n += 0.01;	
+	n += 0.01f;	
 
 	return vec3(1 + sin(n)/40, (1 + (sin(n))/4), 1 + cos(n)/40);
 }
