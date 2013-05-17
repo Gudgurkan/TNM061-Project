@@ -94,7 +94,8 @@ int main ()
 
 	//Add second object
 	Object cube("cube.obj");
-	cube.translateObject(0.0, 0.0, 6.0);
+	cube.scaleObject(0.15f, 0.15f, 0.15f); 
+	cube.translateObject(0.0f, 0.0f, 0.0f);
 	cube.BindBuffers();
 
 	//Add floor
@@ -104,7 +105,7 @@ int main ()
 	objects.push_back(cylinder);
 	objects.push_back(cylinder2);
 	objects.push_back(cylinder3);
-	objects.push_back(cube);
+	//objects.push_back(cube);
 	objects.push_back(floor);
 
 	// Get a handle for our "LightPosition" uniform
@@ -117,6 +118,9 @@ int main ()
 	glUniform3f(LightID2, lightPos2.x, lightPos2.y, lightPos2.z);
 	
 	do{	
+		
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the screen
+		glUseProgram(programID); // Use our shader
 
 		// The sin and cos-terms make the lightsource feel ALIVE! 
 		glm::vec3 lightPos = computeLightFromInputs() * addCircularMotion();
@@ -128,15 +132,24 @@ int main ()
 		mat4 Model      = mat4(1.0f); // Model matrix : an identity matrix (model will be at the origin)
 		mat4 MVP = Projection * View * Model; // Our ModelViewProjection : multiplication of our 3 matrices
 
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the screen
-		glUseProgram(programID); // Use our shader
-
 		// Send our transformation to the currently bound shader, in the "MVP" uniform
 		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]); 
 		glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &Model[0][0]);
 		glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &View[0][0]);
 
 		for_each(objects.begin(), objects.end(), renderB);
+
+		mat4 Model2 = translate(mat4(1.0f), lightPos);
+		//mat4 Model      = mat4(1.0f); // Model matrix : an identity matrix (model will be at the origin)
+		mat4 MVP2 = Projection * View * Model2; // Our ModelViewProjection : multiplication of our 3 matrices
+
+		// Send our transformation to the currently bound shader, in the "MVP" uniform
+		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP2[0][0]); 
+		glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &Model2[0][0]);
+		glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &View[0][0]);
+
+		cube.RenderObject();
+
 
 		glfwSwapBuffers(); // Swap buffers, used for double buffering. Very nice.
 
