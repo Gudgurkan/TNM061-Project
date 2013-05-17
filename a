@@ -1,0 +1,293 @@
+[33mcommit 54aeb48d19c1ae093c72f6768f994125ef0b8bae[m
+Author: Oscar Westberg <oscar.henrik.westberg@gmail.com>
+Date:   Thu May 16 16:28:04 2013 +0200
+
+    nu fungerar tva farger
+
+[33mcommit f8d2b4efd6b22fa9dcb83d8d01c04769dbae54bd[m
+Author: Oscar Westberg <oscar.henrik.westberg@gmail.com>
+Date:   Thu May 16 15:02:08 2013 +0200
+
+    Golv, fixade farger etc
+
+[33mcommit c9c1af8b73630b8cb8314c742e88058793d5214f[m
+Author: Cigg <micke.zackrisson@gmail.com>
+Date:   Thu May 16 14:57:56 2013 +0200
+
+    floor.obj
+
+[33mcommit 33c9eecdf671df85641753dd4743eeb072f04c76[m
+Author: teodorvik <teovi698@student.liu.se>
+Date:   Thu May 16 14:21:53 2013 +0200
+
+    moveLight by MrAwesome (Teodor alltsa)
+
+[33mcommit 979f0f08df09905a9798efbd158f22597972d883[m
+Merge: 861b09d f03db1c
+Author: Cigg <micke.zackrisson@gmail.com>
+Date:   Thu May 16 14:10:37 2013 +0200
+
+    Merge branch 'master' of https://github.com/Gudgurkan/TNM061-Project
+
+[33mcommit 861b09d73a4ba1749012565443471ba0e963ec88[m
+Author: Cigg <micke.zackrisson@gmail.com>
+Date:   Thu May 16 14:06:53 2013 +0200
+
+    De tre reglerna fr interaktivitet. CONTROLS CONTROLS CONTROLS
+
+[33mcommit f03db1cfa97108faa8bab6dee214a187ec7734b0[m
+Author: Oscar Westberg <oscar.henrik.westberg@gmail.com>
+Date:   Thu May 16 14:04:20 2013 +0200
+
+    Fungerar nu att ladda in flera modeller
+
+[33mcommit 5147ec97b00dc981775d2a47836d14c43c099ba4[m
+Author: Oscar Westberg <oscar.henrik.westberg@gmail.com>
+Date:   Thu May 16 12:52:29 2013 +0200
+
+    nu funkar farger
+
+[33mcommit 626497f6c40aacaff956d4a144ef931b0a540980[m
+Author: Oscar Westberg <oscar.henrik.westberg@gmail.com>
+Date:   Thu May 16 12:06:47 2013 +0200
+
+    Forstsatt fiffla med ljuset
+
+[33mcommit 54b473d94e2fe5a89733bb7666b9d45178b86edf[m
+Author: Oscar Westberg <oscar.henrik.westberg@gmail.com>
+Date:   Thu May 16 11:20:20 2013 +0200
+
+    Fixade ljuset
+
+[33mcommit 3b2ebfa2077b797087dfafe38fe21c04d563a507[m
+Author: Cigg <micke.zackrisson@gmail.com>
+Date:   Thu May 16 09:44:11 2013 +0200
+
+    Lade till controls och uppdat. main.
+
+[33mcommit 990b5fadebe53d46ddd497a4701fdb66d9eb9f4e[m
+Author: teodorvik <teovi698@student.liu.se>
+Date:   Wed May 15 16:30:35 2013 +0200
+
+    Objectclass med bindbuffer och
+
+[33mcommit 6c73dd5601779bad76b8be3af8a2ffb70e330aff[m
+Author: teodorvik <teovi698@student.liu.se>
+Date:   Wed May 15 15:30:43 2013 +0200
+
+    Fixat till main, TeoAntMikael
+
+[33mcommit a8ba5cb920b8be033849547c43777c7919ecbb17[m
+Author: teodorvik <teovi698@student.liu.se>
+Date:   Wed May 15 15:19:52 2013 +0200
+
+    Renderclass av Teodor
+
+[33mcommit 4e6bc0fd0e759dfd7f5d961d1206b6b0b9e5d2ff[m
+Author: Cigg <micke.zackrisson@gmail.com>
+Date:   Wed May 15 14:50:15 2013 +0200
+
+    Commitar projektfiler. Kanske behovs.Dunno
+
+[33mcommit 4f383e7d1301ed74a6fb82a0847e4a3335c50f38[m
+Author: Cigg <micke.zackrisson@gmail.com>
+Date:   Wed May 15 14:47:51 2013 +0200
+
+    Objectloader klar
+
+[33mcommit 4498e71f426c082b4f83a365cd47a6e48d239a38[m
+Author: Cigg <micke.zackrisson@gmail.com>
+Date:   Wed May 15 11:32:19 2013 +0200
+
+    Lade till objectloader
+
+[33mcommit 1b47c2fcca8ee48ea2fd173ea3727325e0bc8d09[m
+Author: Cigg <micke.zackrisson@gmail.com>
+Date:   Wed May 15 11:07:49 2013 +0200
+
+    Testade lite
+
+[33mcommit 7fbae6edd80f54fe801766e59937d83e5c220b30[m
+Author: Oscar Westberg <oscar.henrik.westberg@gmail.com>
+Date:   Wed May 8 16:22:57 2013 +0200
+
+    uppdaterat lite mer
+
+[33mcommit 8d7907b14b291c9c48fc28e8456cb461386f9556[m
+Author: Oscar Westberg <oscar.henrik.westberg@gmail.com>
+Date:   Wed May 8 16:10:52 2013 +0200
+
+    uppdaterat lite
+
+[33mcommit fbfd330b6c703e21f602aae9f3dbf9ee85c21903[m
+Author: Oscar Westberg <oscar.henrik.westberg@gmail.com>
+Date:   Wed May 8 15:44:53 2013 +0200
+
+    tut 4 up and running
+
+[33mcommit 679b09e535c58749644c84d0bbb9cd5ee1a833b3[m
+Author: Oscar Westberg <oscar.henrik.westberg@gmail.com>
+Date:   Wed May 8 14:57:21 2013 +0200
+
+    foljer sassans tutorial
+
+[33mcommit 6e66920f03096af8bda7d2b776e100ab6e1cb002[m
+Author: Oscar Westberg <oscar.henrik.westberg@gmail.com>
+Date:   Mon Apr 22 15:06:19 2013 +0200
+
+    Fortsatt med tutorialsen
+
+[33mcommit f201a29e78f401ce231528388707808f87ed9298[m
+Author: Oscar Westberg <oscar.henrik.westberg@gmail.com>
+Date:   Mon Apr 22 14:08:05 2013 +0200
+
+    Foljer Sassans tut
+
+[33mcommit 86639028019ab36c7d458532712e9c36a209f023[m
+Author: Oscar Westberg <oscar.henrik.westberg@gmail.com>
+Date:   Mon Apr 22 13:08:21 2013 +0200
+
+    Foljer Sassans tutorial
+
+[33mcommit ad54275ee1efa382745baec775ae6a03b4294ba0[m
+Author: Oscar Westberg <oscar.henrik.westberg@gmail.com>
+Date:   Mon Apr 22 11:33:43 2013 +0200
+
+    tog bort lite filer, la till main etc
+
+[33mcommit 26e70323a4e1f3a7932200fb86c98b00d3854e72[m
+Author: Oscar Westberg <oscar.henrik.westberg@gmail.com>
+Date:   Mon Apr 22 11:21:54 2013 +0200
+
+    Borjar om fran borjan pa denna branch
+
+[33mcommit 5f414cf0f19f2a1c80b346af227e84f61aaa6692[m
+Author: Oscar Westberg <oscar.henrik.westberg@gmail.com>
+Date:   Mon Apr 22 10:30:43 2013 +0200
+
+    La till saker i Links
+
+[33mcommit 68904ee19d1517cae025853ccb160e83ecf74169[m
+Author: Oscar Westberg <oscar.henrik.westberg@gmail.com>
+Date:   Mon Apr 22 10:03:40 2013 +0200
+
+    upp med allt till master
+
+[33mcommit 5bf891aafb212680564cd8a2e1fe1da76b0fde0c[m
+Author: Oscar Westberg <oscar.henrik.westberg@gmail.com>
+Date:   Mon Apr 22 09:53:33 2013 +0200
+
+    Fixade till kommentarer
+
+[33mcommit fe326c989ceab3669bdbdc157ebd0150388e619b[m
+Merge: db0fc6c ddca6a9
+Author: Oscar Westberg <oscar.henrik.westberg@gmail.com>
+Date:   Fri Apr 19 14:57:29 2013 +0200
+
+    fixade till readme
+
+[33mcommit db0fc6cab7bbaa9f864cc3284690851f9f9ae166[m
+Merge: 123daf3 0b9dbca
+Author: Oscar Westberg <oscar.henrik.westberg@gmail.com>
+Date:   Fri Apr 19 14:56:13 2013 +0200
+
+    readme eller vafan
+
+[33mcommit ddca6a9d3bb1959fda7959bdf99a930504e9d37a[m
+Author: Oscar Westberg <oscar.henrik.westberg@gmail.com>
+Date:   Fri Apr 19 14:54:08 2013 +0200
+
+    jahopp
+
+[33mcommit bcbde2dbfb8e37a52981888ee29b58c07260c2e7[m
+Author: Oscar Westberg <oscar.henrik.westberg@gmail.com>
+Date:   Fri Apr 19 14:50:09 2013 +0200
+
+    fixade till branch Oscar
+
+[33mcommit 0b9dbcabb2502d790a7aa657ca13db07acb210fb[m
+Merge: 49e3974 043d169
+Author: antonosterblad <antos600@student.liu.se>
+Date:   Fri Apr 19 14:44:05 2013 +0200
+
+    Merge branch 'master' of https://github.com/Gudgurkan/TNM061-Project
+
+[33mcommit 49e3974e82b315c42952dd379deeed2b5eb9de9c[m
+Merge: 61e2680 d5909e6
+Author: antonosterblad <antos600@student.liu.se>
+Date:   Fri Apr 19 14:43:54 2013 +0200
+
+    ninting
+
+[33mcommit 61e268003080a9e85bb03ec5f1e77062c401c0af[m
+Author: antonosterblad <antos600@student.liu.se>
+Date:   Fri Apr 19 14:42:21 2013 +0200
+
+    ninting
+
+[33mcommit 043d1691bf408b2d33a3f91b0d01d75d7f0d89ef[m
+Author: Oscar Westberg <oscar.henrik.westberg@gmail.com>
+Date:   Fri Apr 19 14:42:18 2013 +0200
+
+    andrade main-filen
+
+[33mcommit d5909e60d251264c6d58755b5fbfcde085e66017[m
+Author: Oscar Westberg <oscar.henrik.westberg@gmail.com>
+Date:   Fri Apr 19 14:39:22 2013 +0200
+
+    La till alla filer
+
+[33mcommit 38059fa90ad354539ef66fa5475bb587ebc69576[m
+Author: teodorvik <teovi698@student.liu.se>
+Date:   Fri Apr 19 14:35:47 2013 +0200
+
+    Nu jävlar
+
+[33mcommit fcc2c2eca349bb0af152665680a3d7e293fca68b[m
+Merge: 33f7705 d58b493
+Author: Cigg <micke.zackrisson@gmail.com>
+Date:   Fri Apr 19 14:33:13 2013 +0200
+
+    Merge branch 'master' of https://github.com/Gudgurkan/TNM061-Project
+
+[33mcommit 33f77052e478c6075764d31cf8be581a1680ac89[m
+Author: Cigg <micke.zackrisson@gmail.com>
+Date:   Fri Apr 19 14:31:59 2013 +0200
+
+    Testa lite
+
+[33mcommit d58b4935199e1229b74c9a5a07a2fcbbe96e54b4[m
+Author: Oscar Westberg <oscar.henrik.westberg@gmail.com>
+Date:   Fri Apr 19 14:24:39 2013 +0200
+
+    la till en till fil som har en massa info
+
+[33mcommit 4d5c0d22fb58fdae3d3603d3061eefd0852fcba7[m
+Author: Oscar Westberg <oscar.henrik.westberg@gmail.com>
+Date:   Fri Apr 19 14:21:30 2013 +0200
+
+    La till en rad
+
+[33mcommit 123daf331a65b50c70ae1397a1c8395b842ba41d[m
+Author: Oscar Westberg <oscar.henrik.westberg@gmail.com>
+Date:   Fri Apr 19 14:19:52 2013 +0200
+
+    Hej
+
+[33mcommit 2e2cacd8c6ea45947e0715ee8a193bbb8c1d28e9[m
+Author: teodorvik <teovi698@student.liu.se>
+Date:   Fri Apr 19 14:12:00 2013 +0200
+
+    Nu har jag ändrat något. Ber om ursäkt om det blir bajs
+
+[33mcommit ca730d904045027c917b231a13f566a0d2738b6c[m
+Author: SirEllington <johansylvan1@gmail.com>
+Date:   Fri Apr 19 14:37:22 2013 +0300
+
+    Update README.txt
+
+[33mcommit 479340a9a5962ec467998de3071707c2a0fb3960[m
+Author: Oscar Westberg <oscar.henrik.westberg@gmail.com>
+Date:   Fri Apr 19 13:33:21 2013 +0200
+
+    First commit
