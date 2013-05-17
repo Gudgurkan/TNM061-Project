@@ -87,12 +87,25 @@ bool loadObject(
 				for(int i = 0; i < 3; i++)
 				{
 					ss	>> vertexIndex[i]
-						>> uvIndex[i]
-						>> normalIndex[i];
+						>> uvIndex[i];
 
-					vertexIndices.push_back(vertexIndex[i]);
-					uvIndices    .push_back(uvIndex[i]);
-					normalIndices.push_back(normalIndex[i]);
+					if(ss >> normalIndex[i])
+					{
+						vertexIndices.push_back(vertexIndex[i]);
+						uvIndices    .push_back(uvIndex[i]);
+						normalIndices.push_back(normalIndex[i]);
+					}
+					else
+					{
+						normalIndex[i] = uvIndex[i];
+						vertexIndices.push_back(vertexIndex[i]);
+						uvIndex[i] = 1;
+						uvIndices    .push_back(uvIndex[i]);
+						normalIndices.push_back(normalIndex[i]);
+					}
+						
+
+				
 				}
 
 			}
@@ -122,7 +135,8 @@ bool loadObject(
 		
 		// Get the attributes thanks to the index
 		glm::vec3 vertex = temp_vertices[ vertexIndex-1 ];
-		glm::vec2 uv = temp_uvs[ uvIndex-1 ];
+		//glm::vec2 uv = temp_uvs[ uvIndex-1 ];
+		glm::vec2 uv = glm::vec2(0.0f, 0.0f);
 		glm::vec3 normal = temp_normals[ normalIndex-1 ];
 		
 		// Put the attributes in buffers

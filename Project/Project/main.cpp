@@ -93,10 +93,10 @@ int main ()
 	cylinder3.BindBuffers();
 
 	//Add second object
-	Object cube("cube.obj");
-	cube.scaleObject(0.15f, 0.15f, 0.15f); 
-	cube.translateObject(0.0f, 0.0f, 0.0f);
-	cube.BindBuffers();
+	Object sphere("sphere.obj");
+	sphere.scaleObject(0.15f, 0.15f, 0.15f); 
+	sphere.translateObject(0.0f, 0.0f, 0.0f);
+	sphere.BindBuffers();
 
 	//Add floor
 	Object floor("floor.obj");
@@ -148,7 +148,7 @@ int main ()
 		glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &Model2[0][0]);
 		glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &View[0][0]);
 
-		cube.RenderObject();
+		sphere.RenderObject();
 
 
 		glfwSwapBuffers(); // Swap buffers, used for double buffering. Very nice.
