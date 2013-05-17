@@ -17,6 +17,7 @@ Object::Object(const char *path)
 	bool res = loadObject(path, vertices, uvs, normals);
 }
 
+
 void Object::BindBuffers()
 {
 	glGenBuffers(1, &vertexbuffer);
@@ -87,10 +88,35 @@ void Object::deleteBuffers()
 
 void Object::translateObject(float tx, float ty, float tz)
 {	
+	float centerX = 0.0;
+	float centerY = 0.0;
+	float centerZ = 0.0;
+
 	for(int i = 0; i < getNumberOfVertices(); i++)
 	{
 		vertices[i].x = vertices[i].x + tx;
 		vertices[i].y = vertices[i].y + ty;
 		vertices[i].z = vertices[i].z + tz;
+
+		centerX += vertices[i].x;
+		centerY += vertices[i].y;
+		centerZ += vertices[i].z;
 	}
+
+	center = glm::vec3(centerX/getNumberOfVertices(), centerY/getNumberOfVertices(), centerZ/getNumberOfVertices());	
+}
+
+void Object::scaleObject(float tx, float ty, float tz)
+{	
+	for(int i = 0; i < getNumberOfVertices(); i++)
+	{
+		vertices[i].x = vertices[i].x * tx;
+		vertices[i].y = vertices[i].y * ty;
+		vertices[i].z = vertices[i].z * tz;
+	}
+}
+
+glm::vec3 Object::getCenter()
+{
+	return center;
 }

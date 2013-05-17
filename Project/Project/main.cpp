@@ -76,8 +76,21 @@ int main ()
 
 	//Add first object
 	Object cylinder("cylinder.obj");	
-	cylinder.translateObject(-5.0, -1.0, -1.0);
+	cylinder.translateObject(-6.0, -1.0, 0.0);
+	cylinder.scaleObject(1.0, 5.0, 1.0);
 	cylinder.BindBuffers();
+
+	//Add second cylinder object
+	Object cylinder2("cylinder.obj");	
+	cylinder2.translateObject(-2.0, -1.0, 0.0);
+	cylinder2.scaleObject(1.0, 5.0, 1.0);
+	cylinder2.BindBuffers();
+
+	//Add third cylinder object
+	Object cylinder3("cylinder.obj");
+	cylinder3.translateObject(2.0, -1.0, 0.0);
+	cylinder3.scaleObject(1.0, 5.0, 1.0);
+	cylinder3.BindBuffers();
 
 	//Add second object
 	Object cube("cube.obj");
@@ -89,6 +102,8 @@ int main ()
 	floor.BindBuffers();
 
 	objects.push_back(cylinder);
+	objects.push_back(cylinder2);
+	objects.push_back(cylinder3);
 	objects.push_back(cube);
 	objects.push_back(floor);
 

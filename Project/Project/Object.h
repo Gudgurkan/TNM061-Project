@@ -13,13 +13,16 @@ class Object
 		GLuint normalbuffer;
 				
 		void RenderObject();
-		void BindBuffers();
-		void deleteBuffers();
+		void BindBuffers();		
+		void deleteBuffers();	
 
 		void translateObject(float x, float y, float z);
+		void scaleObject(float x, float y, float z);
+		glm::vec3 getCenter();
 
 	private:
 		int sizeVertices;
+		glm::vec3 center;
 		std::vector<glm::vec3> vertices;
 		std::vector<glm::vec2> uvs;
 		std::vector<glm::vec3> normals;
