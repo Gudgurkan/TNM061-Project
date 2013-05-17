@@ -110,6 +110,11 @@ int main ()
 	// Get a handle for our "LightPosition" uniform
 	glUseProgram(programID);
 	GLuint LightID = glGetUniformLocation(programID, "LightPosition_worldspace");
+	GLuint LightID2 = glGetUniformLocation(programID, "LightPosition_worldspace2");
+	
+	//Color position
+	vec3 lightPos2 = vec3(3.0,1.0,2.0);
+	glUniform3f(LightID2, lightPos2.x, lightPos2.y, lightPos2.z);
 	
 	do{	
 
