@@ -9,6 +9,7 @@ using namespace std;
 #include <string.h>
 #include <GL/glew.h>
 #include "Object.h"
+#include <glm/glm.hpp>
 #include "lib/Objectloader.hpp"
 
 
@@ -92,7 +93,7 @@ void Object::translateObject(float tx, float ty, float tz)
 	float centerY = 0.0;
 	float centerZ = 0.0;
 
-	for(int i = 0; i < getNumberOfVertices(); i++)
+	for(int i = 0; i < vertices.size(); i++)
 	{
 		vertices[i].x = vertices[i].x + tx;
 		vertices[i].y = vertices[i].y + ty;
@@ -103,12 +104,12 @@ void Object::translateObject(float tx, float ty, float tz)
 		centerZ += vertices[i].z;
 	}
 
-	center = glm::vec3(centerX/getNumberOfVertices(), centerY/getNumberOfVertices(), centerZ/getNumberOfVertices());	
+	center = glm::vec3(centerX/vertices.size(), centerY/vertices.size(), centerZ/vertices.size());	
 }
 
 void Object::scaleObject(float tx, float ty, float tz)
 {	
-	for(int i = 0; i < getNumberOfVertices(); i++)
+	for(int i = 0; i < vertices.size(); i++)
 	{
 		vertices[i].x = vertices[i].x * tx;
 		vertices[i].y = vertices[i].y * ty;
@@ -119,4 +120,14 @@ void Object::scaleObject(float tx, float ty, float tz)
 glm::vec3 Object::getCenter()
 {
 	return center;
+}
+
+void Object::flipNormals()
+{
+	for(int i = 0; i < normals.size(); i++)
+	{
+		normals[i].x = normals[i].x * -1;
+		normals[i].y = normals[i].y * -1;
+		normals[i].z = normals[i].z * -1;
+	}
 }

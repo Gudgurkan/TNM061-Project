@@ -102,6 +102,7 @@ int main ()
 
 	// Add second object
 	Object sphere("sphere.obj");
+	sphere.flipNormals();
 	sphere.scaleObject(0.15f, 0.15f, 0.15f); 
 	sphere.translateObject(0.0f, 0.0f, 0.0f);
 	sphere.BindBuffers();
@@ -137,7 +138,7 @@ int main ()
 		// -----------------------------------------
 		// Update program
 		// -----------------------------------------
-
+	
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the screen
 		glUseProgram(programID);							// Use our shader
 
@@ -169,6 +170,7 @@ int main ()
 		// -----------------------------------------
 
 		mat4 Model2 = translate(mat4(1.0f), lightPos);
+		
 		//mat4 Model      = mat4(1.0f); // Model matrix : an identity matrix (model will be at the origin)
 		mat4 MVP2 = Projection * View * Model2; // Our ModelViewProjection : multiplication of our 3 matrices
 

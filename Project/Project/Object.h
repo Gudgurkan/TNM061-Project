@@ -19,6 +19,7 @@ class Object
 		void translateObject(float x, float y, float z);
 		void scaleObject(float x, float y, float z);
 		glm::vec3 getCenter();
+		void flipNormals();
 
 	private:
 		int sizeVertices;
