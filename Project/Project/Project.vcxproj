@@ -66,6 +66,7 @@
     <ClCompile Include="lib\moveLight.cpp" />
     <ClCompile Include="lib\Objectloader.cpp" />
     <ClCompile Include="lib\shader.cpp" />
+    <ClCompile Include="lib\shadowMap.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object.cpp" />
   </ItemGroup>
@@ -74,6 +75,7 @@
     <ClInclude Include="lib\moveLight.h" />
     <ClInclude Include="lib\Objectloader.hpp" />
     <ClInclude Include="lib\shader.hpp" />
+    <ClInclude Include="lib\shadowMap.h" />
     <ClInclude Include="Object.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

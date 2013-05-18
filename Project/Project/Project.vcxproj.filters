@@ -36,6 +36,9 @@
     <ClCompile Include="lib\moveLight.cpp">
       <Filter>lib</Filter>
     </ClCompile>
+    <ClCompile Include="lib\shadowMap.cpp">
+      <Filter>lib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\shader.hpp">
@@ -51,6 +54,9 @@
       <Filter>lib</Filter>
     </ClInclude>
     <ClInclude Include="lib\moveLight.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\shadowMap.h">
       <Filter>lib</Filter>
     </ClInclude>
   </ItemGroup>
