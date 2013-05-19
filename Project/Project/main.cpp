@@ -12,6 +12,10 @@
 
 using namespace glm;
 
+GLuint MatrixID;
+GLuint ViewMatrixID;
+GLuint ModelMatrixID;
+
 void renderB(Object &obj)
 {
 	obj.RenderObject();
@@ -68,9 +72,9 @@ int main ()
 
 	// Create and compile our GLSL program from the shaders
 	GLuint programID = LoadShaders( "TransformVertexShader.vertexshader", "ColorFragmentShader.fragmentshader" ); 
-	GLuint MatrixID = glGetUniformLocation(programID, "MVP");
-	GLuint ViewMatrixID = glGetUniformLocation(programID, "V");
-	GLuint ModelMatrixID = glGetUniformLocation(programID, "M");
+	MatrixID = glGetUniformLocation(programID, "MVP");
+	ViewMatrixID = glGetUniformLocation(programID, "V");
+	ModelMatrixID = glGetUniformLocation(programID, "M");
 	GLuint DepthBiasID = glGetUniformLocation(programID, "DepthBiasMVP");
 	GLuint ShadowMapID = glGetUniformLocation(programID, "shadowMap");
 
@@ -85,27 +89,22 @@ int main ()
 
 	// Add first object
 	Object cylinder("cylinder.obj");	
-	cylinder.translateObject(-6.0, -1.0, 0.0);
-	cylinder.scaleObject(1.0, 5.0, 1.0);
+	cylinder.transformationMatrix = translate(mat4(1.0f), vec3(-6.0f, -1.0, 0.0))*scale(mat4(1.0f),vec3(1.0f,6.0f,1.0f));
 	cylinder.BindBuffers();
 
 	// Add second cylinder object
-	Object cylinder2("cylinder.obj");	
-	cylinder2.translateObject(-2.0, -1.0, 0.0);
-	cylinder2.scaleObject(1.0, 5.0, 1.0);
+	Object cylinder2("cylinder.obj");
+	cylinder2.transformationMatrix = translate(mat4(1.0f), vec3(-3.0f, -1.0, 0.0))*scale(mat4(1.0f),vec3(1.0f,6.0f,1.0f));
 	cylinder2.BindBuffers();
 
 	// Add third cylinder object
 	Object cylinder3("cylinder.obj");
-	cylinder3.translateObject(2.0, -1.0, 0.0);
-	cylinder3.scaleObject(1.0, 5.0, 1.0);
+	cylinder3.transformationMatrix = translate(mat4(1.0f), vec3(0.0f, -1.0, 0.0))*scale(mat4(1.0f),vec3(1.0f,6.0f,1.0f));
 	cylinder3.BindBuffers();
 
 	// Add second object
 	Object sphere("sphere.obj");
 	sphere.flipNormals();
-	sphere.scaleObject(0.15f, 0.15f, 0.15f); 
-	sphere.translateObject(0.0f, 0.0f, 0.0f);
 	sphere.BindBuffers();
 
 	// Add floor
@@ -216,60 +215,102 @@ int main ()
 		//mat4 depthViewMatrix = lookAt(lightPos + vec3(1.0,1.0,1.0), lightPos, vec3(0,1,0));
 		//mat4 depthViewMatrix = lookAt(lightPos, lightPos-lightInvDir, vec3(0,1,0));
 
-		mat4 depthModelMatrix = mat4(1.0);
-		mat4 depthMVP = depthProjectionMatrix * depthViewMatrix * depthModelMatrix;
+		//mat4 depthModelMatrix = mat4(1.0);
+		//mat4 depthMVP = depthProjectionMatrix * depthViewMatrix * depthModelMatrix;
  
-		glUniformMatrix4fv(depthMatrixID, 1, GL_FALSE, &depthMVP[0][0]);		// Send our transformation to the currently bound shader, in the "MVP" uniform
+		//glUniformMatrix4fv(depthMatrixID, 1, GL_FALSE, &depthMVP[0][0]);		// Send our transformation to the currently bound shader, in the "MVP" uniform
 
-		for_each(objects.begin(), objects.end(), renderB);
+
+		//for_each(objects.begin(), objects.end(), renderB);
+		for(int i = 0; i < objects.size(); i++)
+		{
+			//mat4 depthModelMatrix = mat4(1.0);
+			mat4 depthMVP = depthProjectionMatrix * depthViewMatrix * objects[i].transformationMatrix;
+
+			// Send our transformation to the currently bound shader, 
+			// in the "MVP" uniform
+			glUniformMatrix4fv(depthMatrixID, 1, GL_FALSE, &depthMVP[0][0]);
+			objects[i].RenderObject();
+
+		}
 
 		// -----------------------------------------
 		// Render to screen
 		// -----------------------------------------
+		for(int i = 0; i < objects.size(); i++)
+		{
 
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		glViewport(0,0,1024,768); // Render on the whole framebuffer, complete from the lower left corner to the upper right
+			glBindFramebuffer(GL_FRAMEBUFFER, 0);
+			glViewport(0,0,1024,768); // Render on the whole framebuffer, complete from the lower left corner to the upper right
 
-		// So that the floor is drawn as well
-		glDisable(GL_CULL_FACE);
-		glCullFace(GL_BACK); // Cull back-facing triangles -> draw only front-facing triangles
+			// So that the floor is drawn as well
+			glDisable(GL_CULL_FACE);
+			glCullFace(GL_BACK); // Cull back-facing triangles -> draw only front-facing triangles
 
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glUseProgram(programID);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			glUseProgram(programID);
 
-		mat4 Projection = getProjectionMatrix();
-		mat4 View = getViewMatrix();
-		mat4 Model      = mat4(1.0f); // Model matrix : an identity matrix (model will be at the origin)
-		mat4 MVP = Projection * View * Model; // Our ModelViewProjection : multiplication of our 3 matrices
+			mat4 Projection = getProjectionMatrix();
+			mat4 View = getViewMatrix();
+			mat4 Model      = mat4(1.0f); // Model matrix : an identity matrix (model will be at the origin)
+			mat4 MVP = Projection * View * objects[i].transformationMatrix; // Our ModelViewProjection : multiplication of our 3 matrices
 
-		glm::mat4 biasMatrix(
-			0.5, 0.0, 0.0, 0.0, 
-			0.0, 0.5, 0.0, 0.0,
-			0.0, 0.0, 0.5, 0.0,
-			0.5, 0.5, 0.5, 1.0
-		);
+			glm::mat4 biasMatrix(
+				0.5, 0.0, 0.0, 0.0, 
+				0.0, 0.5, 0.0, 0.0,
+				0.0, 0.0, 0.5, 0.0,
+				0.5, 0.5, 0.5, 1.0
+			);
 
-		glm::mat4 depthBiasMVP = biasMatrix*depthMVP;
+			mat4 depthMVP = depthProjectionMatrix * depthViewMatrix * objects[i].transformationMatrix;
+			mat4 depthBiasMVP = biasMatrix*depthMVP;
 
-		// Send our transformation to the currently bound shader, in the "MVP" uniform
-		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]); 
-		glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &Model[0][0]);
-		glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &View[0][0]);
-		glUniformMatrix4fv(DepthBiasID, 1, GL_FALSE, &depthBiasMVP[0][0]);
+			// Send our transformation to the currently bound shader, in the "MVP" uniform
 
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, depthTexture);
-		glUniform1i(ShadowMapID, 0);
+			//glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]); 
+			//glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &Model[0][0]);
+			//glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &View[0][0]);
+			//glUniformMatrix4fv(DepthBiasID, 1, GL_FALSE, &depthBiasMVP[0][0]);
+
+			//mat4 Projection = getProjectionMatrix();
+			//mat4 View = getViewMatrix();
+			//mat4 MVP = Projection * View * cylinder.transformationMatrix;
+			glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
+			glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &cylinder.transformationMatrix[0][0]);
+			glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &View[0][0]);
+			glUniformMatrix4fv(DepthBiasID, 1, GL_FALSE, &depthBiasMVP[0][0]);
+
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, depthTexture);
+			glUniform1i(ShadowMapID, 0);
+
+		}
 
 		// Render objects
-		for_each(objects.begin(), objects.end(), renderB);
+		//for_each(objects.begin(), objects.end(), renderB);
+		for(int i = 0; i < objects.size(); i++)
+		{
+			mat4 ProjectionMatrix2 = getProjectionMatrix();
+			mat4 ViewMatrix2 = getViewMatrix();
+			glm::mat4 ModelMatrix = glm::mat4(1.0);
+			mat4 ModelMatrix2 = objects[i].transformationMatrix;
+			mat4 MVP2 = ProjectionMatrix2 * ViewMatrix2 * ModelMatrix2;
+
+			// Send our transformation to the currently bound shader, 
+			// in the "MVP" uniform
+			glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP2[0][0]);
+			glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &ModelMatrix2[0][0]);
+			glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &ViewMatrix2[0][0]);
+			objects[i].RenderObject();
+		}
 
 		// -----------------------------------------
 		// Handle light transformation
 		// -----------------------------------------
 
-		mat4 Model2 = translate(mat4(1.0f), lightPos);
-		
+		mat4 Model2 = translate(mat4(1.0f), lightPos)*scale(mat4(1.0f),vec3(0.15f, 0.15f, 0.15f));
+		mat4 Projection = getProjectionMatrix();
+		mat4 View = getViewMatrix();
 		//mat4 Model      = mat4(1.0f); // Model matrix : an identity matrix (model will be at the origin)
 		mat4 MVP2 = Projection * View * Model2; // Our ModelViewProjection : multiplication of our 3 matrices
 

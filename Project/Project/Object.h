@@ -20,6 +20,7 @@ class Object
 		void scaleObject(float x, float y, float z);
 		glm::vec3 getCenter();
 		void flipNormals();
+		glm::mat4 transformationMatrix;
 
 	private:
 		int sizeVertices;
