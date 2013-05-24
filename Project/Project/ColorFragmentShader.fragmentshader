@@ -7,24 +7,24 @@ in vec3 Position_worldspace;
 in vec3 Normal_cameraspace;
 in vec3 EyeDirection_cameraspace;
 in vec3 LightDirection_cameraspace;
-in vec3 LightDirection_cameraspace2;
+//in vec3 LightDirection_cameraspace2;
 in vec4 ShadowCoord;
 
 // Ouput data
-out vec3 color;
+layout(location = 0) out vec3 color;
 
 // Values that stay constant for the whole mesh.
 //uniform sampler2D myTextureSampler;
-//uniform mat4 MV;
+//uniform vec3 LightPosition_worldspace2;
+uniform mat4 MV;
 uniform vec3 LightPosition_worldspace;
-uniform vec3 LightPosition_worldspace2;
 uniform sampler2DShadow shadowMap;
 
 void main(){
 	// Light emission properties
 	vec3 LightColor = vec3(1.0,0.0,0.0);
 	vec3 LightColor2 = vec3(0.0,0.0,1.0);
-	float LightPower = 5.0f;
+	float LightPower = 30.0f;
 	
 	// Material properties
 	//vec3 MaterialDiffuseColor = texture2D( myTextureSampler, UV ).rgb;
@@ -54,20 +54,31 @@ void main(){
 
 	//LIGHT2
 	// Distance to the light
-	float distance2 = length(LightPosition_worldspace2 - Position_worldspace);
+	//float distance2 = length(LightPosition_worldspace2 - Position_worldspace);
 
 	//FOR DIFFUSE COLOR2
-	vec3 l2 = normalize( LightDirection_cameraspace2 ); 
-	float cosTheta2 = clamp( dot( n,l2 ), 0,1 );
+	//vec3 l2 = normalize( LightDirection_cameraspace2 ); 
+	//float cosTheta2 = clamp( dot( n,l2 ), 0,1 );
 
 	//FOR SPECULAR HIGHLIGHTS2
-	vec3 R2 = reflect(-l2,n);
-	float cosAlpha2 = clamp( dot( E,R2 ), 0,1 );
+	//vec3 R2 = reflect(-l2,n);
+	//float cosAlpha2 = clamp( dot( E,R2 ), 0,1 );
 
-	float visibility = texture(shadowMap, vec3(ShadowCoord.xy, (ShadowCoord.z)/ShadowCoord.w));
+	//float visibility = texture(shadowMap, vec3(ShadowCoord.xy, (ShadowCoord.z)/ShadowCoord.w));
+	float bias = 0.005;
+	float visibility = 1.0;
+
+	//gvec4 texture (gsampler2D sampler, vec2 P [, float bias] )
+
+	//visibility = shadow2D(shadowMap, ShadowCoord);
+	//if ( texture(shadowMap, vec3(ShadowCoord))  < ShadowCoord.z-bias){
+	if ( texture( shadowMap, ShadowCoord.xyw ) <  (ShadowCoord.z-bias)/ShadowCoord.w ){
+		visibility = 0.5;
+	}
 
 	color = 
 		MaterialAmbientColor +
-		visibility * (MaterialDiffuseColor * LightColor * LightPower * cosTheta / (distance*distance) + MaterialDiffuseColor * LightColor2 * LightPower * cosTheta2 / (distance2*distance2) +
-		0 * MaterialSpecularColor * LightColor * LightPower * pow(cosAlpha,5) / (distance*distance));
+		visibility * (MaterialDiffuseColor * LightColor * LightPower * cosTheta / (distance*distance)); 
+		//+ MaterialDiffuseColor * LightColor2 * LightPower * cosTheta2 / (distance2*distance2) +
+		//0 * MaterialSpecularColor * LightColor * LightPower * pow(cosAlpha,5) / (distance*distance));
 }

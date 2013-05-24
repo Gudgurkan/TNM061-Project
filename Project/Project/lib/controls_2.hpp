@@ -3,7 +3,9 @@
 
 using namespace glm;
 
-void updateMatrices();
+vec3 computeLightFromInputs();
+vec3 addCircularMotion();
+vec3 getPosView();
 mat4 getViewMatrix();
 mat4 getProjectionMatrix();
 

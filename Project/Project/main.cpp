@@ -8,6 +8,7 @@
 #include <algorithm>
 #include "lib/Objectloader.hpp"
 #include "lib/controls.hpp"
+#include "lib/moveLight.h"
 #include "Object.h"
 
 using namespace glm;
@@ -81,6 +82,11 @@ int main ()
 	GLuint depthProgramID = LoadShaders( "DepthRTT.vertexshader", "DepthRTT.fragmentshader" );
 	GLuint depthMatrixID = glGetUniformLocation(depthProgramID, "depthMVP");
 
+	// Get a handle for our "LightPosition" uniform
+	GLuint lightInvDirID = glGetUniformLocation(programID, "LightInvDirection_worldspace");
+	GLuint LightID = glGetUniformLocation(programID, "LightPosition_worldspace");
+	GLuint LightID2 = glGetUniformLocation(programID, "LightPosition_worldspace2");
+
 	// -----------------------------------------
 	// Add objects
 	// -----------------------------------------
@@ -104,6 +110,7 @@ int main ()
 
 	// Add second object
 	Object sphere("sphere.obj");
+	sphere.transformationMatrix = translate(mat4(1.0f), vec3(0, 0.5, -4))*scale(mat4(1.0f),vec3(0.15f, 0.15f, 0.15f));
 	sphere.flipNormals();
 	sphere.BindBuffers();
 
@@ -112,18 +119,14 @@ int main ()
 	floor.BindBuffers();
 
 	objects.push_back(cylinder);
-	objects.push_back(cylinder2);
-	objects.push_back(cylinder3);
+	//objects.push_back(cylinder2);
+	//objects.push_back(cylinder3);
 	objects.push_back(floor);
 
 	// -----------------------------------------
 	// Handle lights
 	// -----------------------------------------
-
-	// Get a handle for our "LightPosition" uniform
 	glUseProgram(programID);
-	GLuint LightID = glGetUniformLocation(programID, "LightPosition_worldspace");
-	GLuint LightID2 = glGetUniformLocation(programID, "LightPosition_worldspace2");
 	
 	// Color position
 	vec3 lightPos2 = vec3(3.0,1.0,2.0);
@@ -134,7 +137,7 @@ int main ()
 	// -----------------------------------------
 
 	// The framebuffer, which regroups 0, 1, or more textures, and 0 or 1 depth buffer.
-	GLuint FramebufferName = 0;
+	GLuint FramebufferName = 1;
 	glGenFramebuffers(1, &FramebufferName);
 	glBindFramebuffer(GL_FRAMEBUFFER, FramebufferName);
  
@@ -180,12 +183,12 @@ int main ()
 	GLuint quad_programID = LoadShaders( "Passthrough.vertexshader", "SimpleTexture.fragmentshader" );
 	GLuint texID = glGetUniformLocation(quad_programID, "texture");
 
-
 	// -----------------------------------------
 	// Main loop
 	// -----------------------------------------
 	
 	do{	
+		updateMatrices();
 		vec3 lightPos = computeLightFromInputs() * addCircularMotion();
 		glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
 
@@ -199,20 +202,20 @@ int main ()
 		// We don't use bias in the shader, but instead we draw back faces, 
 		// which are already separated from the front faces by a small distance 
 		// (if your geometry is made this way)
-		glEnable(GL_CULL_FACE);
+		//glEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK); // Cull back-facing triangles -> draw only front-facing triangles
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glUseProgram(depthProgramID);
 
 		// Compute the MVP matrix from the light's point of view
-		mat4 depthProjectionMatrix = ortho<float>(10,-10,10,-10,10,-20);
+		//mat4 depthProjectionMatrix = ortho<float>(-10,10,-10,10,-10,20);
 		//mat4 depthViewMatrix = lookAt(lightPos, vec3(10,10,10), vec3(0,1,0)); //(LookAtPos, CenterPos, upVector)
-		mat4 depthViewMatrix = lookAt(lightPos, getPosView(), vec3(0,1,0)); //(LookAtPos, CenterPos, upVector)
+		//mat4 depthViewMatrix = lookAt(lightPos + vec3(1.0,0.0,0.0), lightPos, vec3(0,1,0)); //(LookAtPos, CenterPos, upVector)
 		// or, for spot light :
-		//vec3 lightInvDir = getPosView();
-		//mat4 depthProjectionMatrix = perspective<float>(45.0f, 1.0f, 2.0f, 50.0f);
-		//mat4 depthViewMatrix = lookAt(lightPos + vec3(1.0,1.0,1.0), lightPos, vec3(0,1,0));
+		vec3 lightInvDir = (lightPos + vec3(0.0,0.0,1.0));
+		mat4 depthProjectionMatrix = perspective<float>(45.0f, 1.0f, 2.0f, 50.0f);
+		mat4 depthViewMatrix = lookAt(lightInvDir, lightPos, vec3(0,1,0));
 		//mat4 depthViewMatrix = lookAt(lightPos, lightPos-lightInvDir, vec3(0,1,0));
 
 		//mat4 depthModelMatrix = mat4(1.0);
@@ -225,7 +228,8 @@ int main ()
 		for(int i = 0; i < objects.size(); i++)
 		{
 			//mat4 depthModelMatrix = mat4(1.0);
-			mat4 depthMVP = depthProjectionMatrix * depthViewMatrix * objects[i].transformationMatrix;
+			mat4 depthModelMatrix = objects[i].transformationMatrix;
+			mat4 depthMVP = depthProjectionMatrix * depthViewMatrix * depthModelMatrix;
 
 			// Send our transformation to the currently bound shader, 
 			// in the "MVP" uniform
@@ -237,70 +241,48 @@ int main ()
 		// -----------------------------------------
 		// Render to screen
 		// -----------------------------------------
+
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glViewport(0,0,1024,768); // Render on the whole framebuffer, complete from the lower left corner to the upper right
+
+		// So that the floor is drawn as well
+		glDisable(GL_CULL_FACE);
+		//glCullFace(GL_BACK); // Cull back-facing triangles -> draw only front-facing triangles
+
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glUseProgram(programID);
+
+		mat4 Projection = getProjectionMatrix();
+		mat4 View = getViewMatrix();
+		mat4 Model      = mat4(1.0f); // Model matrix : an identity matrix (model will be at the origin)
+
+		glm::mat4 biasMatrix(
+			0.5, 0.0, 0.0, 0.0, 
+			0.0, 0.5, 0.0, 0.0,
+			0.0, 0.0, 0.5, 0.0,
+			0.5, 0.5, 0.5, 1.0
+		);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, depthTexture);
+		glUniform1i(ShadowMapID, 0);
+
 		for(int i = 0; i < objects.size(); i++)
 		{
+			mat4 Model = objects[i].transformationMatrix;
+			mat4 MVP = Projection * View * Model;
+			mat4 depthMVP = depthProjectionMatrix * depthViewMatrix * Model;
+			//mat4 depthBiasMVP = biasMatrix*depthMVP;
+			mat4 depthBiasMVP = depthMVP;
 
-			glBindFramebuffer(GL_FRAMEBUFFER, 0);
-			glViewport(0,0,1024,768); // Render on the whole framebuffer, complete from the lower left corner to the upper right
-
-			// So that the floor is drawn as well
-			glDisable(GL_CULL_FACE);
-			glCullFace(GL_BACK); // Cull back-facing triangles -> draw only front-facing triangles
-
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			glUseProgram(programID);
-
-			mat4 Projection = getProjectionMatrix();
-			mat4 View = getViewMatrix();
-			mat4 Model      = mat4(1.0f); // Model matrix : an identity matrix (model will be at the origin)
-			mat4 MVP = Projection * View * objects[i].transformationMatrix; // Our ModelViewProjection : multiplication of our 3 matrices
-
-			glm::mat4 biasMatrix(
-				0.5, 0.0, 0.0, 0.0, 
-				0.0, 0.5, 0.0, 0.0,
-				0.0, 0.0, 0.5, 0.0,
-				0.5, 0.5, 0.5, 1.0
-			);
-
-			mat4 depthMVP = depthProjectionMatrix * depthViewMatrix * objects[i].transformationMatrix;
-			mat4 depthBiasMVP = biasMatrix*depthMVP;
-
-			// Send our transformation to the currently bound shader, in the "MVP" uniform
-
-			//glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]); 
-			//glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &Model[0][0]);
-			//glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &View[0][0]);
-			//glUniformMatrix4fv(DepthBiasID, 1, GL_FALSE, &depthBiasMVP[0][0]);
-
-			//mat4 Projection = getProjectionMatrix();
-			//mat4 View = getViewMatrix();
-			//mat4 MVP = Projection * View * cylinder.transformationMatrix;
+			// Send our transformation to the currently bound shader
 			glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
-			glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &cylinder.transformationMatrix[0][0]);
+			glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &Model[0][0]);
 			glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &View[0][0]);
 			glUniformMatrix4fv(DepthBiasID, 1, GL_FALSE, &depthBiasMVP[0][0]);
+			glUniform3f(lightInvDirID, lightInvDir.x, lightInvDir.y, lightInvDir.z);
 
-			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, depthTexture);
-			glUniform1i(ShadowMapID, 0);
-
-		}
-
-		// Render objects
-		//for_each(objects.begin(), objects.end(), renderB);
-		for(int i = 0; i < objects.size(); i++)
-		{
-			mat4 ProjectionMatrix2 = getProjectionMatrix();
-			mat4 ViewMatrix2 = getViewMatrix();
-			glm::mat4 ModelMatrix = glm::mat4(1.0);
-			mat4 ModelMatrix2 = objects[i].transformationMatrix;
-			mat4 MVP2 = ProjectionMatrix2 * ViewMatrix2 * ModelMatrix2;
-
-			// Send our transformation to the currently bound shader, 
-			// in the "MVP" uniform
-			glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP2[0][0]);
-			glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &ModelMatrix2[0][0]);
-			glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &ViewMatrix2[0][0]);
+			// Render objects
 			objects[i].RenderObject();
 		}
 
@@ -308,16 +290,17 @@ int main ()
 		// Handle light transformation
 		// -----------------------------------------
 
-		mat4 Model2 = translate(mat4(1.0f), lightPos)*scale(mat4(1.0f),vec3(0.15f, 0.15f, 0.15f));
-		mat4 Projection = getProjectionMatrix();
-		mat4 View = getViewMatrix();
+		sphere.transformationMatrix = translate(mat4(1.0f), lightPos)*scale(mat4(1.0f),vec3(0.15f, 0.15f, 0.15f));
+		mat4 Model2 = sphere.transformationMatrix;
+		mat4 Projection2 = getProjectionMatrix();
+		mat4 View2 = getViewMatrix();
 		//mat4 Model      = mat4(1.0f); // Model matrix : an identity matrix (model will be at the origin)
-		mat4 MVP2 = Projection * View * Model2; // Our ModelViewProjection : multiplication of our 3 matrices
+		mat4 MVP2 = Projection2 * View2 * Model2; // Our ModelViewProjection : multiplication of our 3 matrices
 
 		// Send our transformation to the currently bound shader, in the "MVP2" uniform
 		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP2[0][0]); 
 		glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &Model2[0][0]);
-		glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &View[0][0]);
+		glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &View2[0][0]);
 
 		// Render light point
 		sphere.RenderObject();
