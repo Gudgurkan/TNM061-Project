@@ -119,8 +119,8 @@ int main ()
 	floor.BindBuffers();
 
 	objects.push_back(cylinder);
-	//objects.push_back(cylinder2);
-	//objects.push_back(cylinder3);
+	objects.push_back(cylinder2);
+	objects.push_back(cylinder3);
 	objects.push_back(floor);
 
 	// -----------------------------------------
@@ -208,15 +208,15 @@ int main ()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glUseProgram(depthProgramID);
 
+		vec3 lightInvDir = (lightPos + vec3(0.0,0.0,0.0));
 		// Compute the MVP matrix from the light's point of view
 		//mat4 depthProjectionMatrix = ortho<float>(-10,10,-10,10,-10,20);
-		//mat4 depthViewMatrix = lookAt(lightPos, vec3(10,10,10), vec3(0,1,0)); //(LookAtPos, CenterPos, upVector)
-		//mat4 depthViewMatrix = lookAt(lightPos + vec3(1.0,0.0,0.0), lightPos, vec3(0,1,0)); //(LookAtPos, CenterPos, upVector)
+		//mat4 depthViewMatrix = lookAt(lightInvDir, vec3(0,0,0), vec3(0,1,0)); //(LookAtPos, CenterPos, upVector)
+		
 		// or, for spot light :
-		vec3 lightInvDir = (lightPos + vec3(0.0,0.0,1.0));
-		mat4 depthProjectionMatrix = perspective<float>(45.0f, 1.0f, 2.0f, 50.0f);
-		mat4 depthViewMatrix = lookAt(lightInvDir, lightPos, vec3(0,1,0));
-		//mat4 depthViewMatrix = lookAt(lightPos, lightPos-lightInvDir, vec3(0,1,0));
+		mat4 depthProjectionMatrix = perspective<float>(90.0f, 1.0f, 2.0f, 50.0f);
+		//mat4 depthViewMatrix = lookAt(lightInvDir, lightPos, vec3(0,1,0));
+		mat4 depthViewMatrix = lookAt(lightPos, lightPos-lightInvDir, vec3(0,1,0));
 
 		//mat4 depthModelMatrix = mat4(1.0);
 		//mat4 depthMVP = depthProjectionMatrix * depthViewMatrix * depthModelMatrix;
@@ -266,21 +266,20 @@ int main ()
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, depthTexture);
 		glUniform1i(ShadowMapID, 0);
+		glUniform3f(lightInvDirID, lightInvDir.x, lightInvDir.y, lightInvDir.z);
 
 		for(int i = 0; i < objects.size(); i++)
 		{
 			mat4 Model = objects[i].transformationMatrix;
 			mat4 MVP = Projection * View * Model;
 			mat4 depthMVP = depthProjectionMatrix * depthViewMatrix * Model;
-			//mat4 depthBiasMVP = biasMatrix*depthMVP;
-			mat4 depthBiasMVP = depthMVP;
+			mat4 depthBiasMVP = biasMatrix*depthMVP;
 
 			// Send our transformation to the currently bound shader
 			glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
 			glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &Model[0][0]);
 			glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &View[0][0]);
 			glUniformMatrix4fv(DepthBiasID, 1, GL_FALSE, &depthBiasMVP[0][0]);
-			glUniform3f(lightInvDirID, lightInvDir.x, lightInvDir.y, lightInvDir.z);
 
 			// Render objects
 			objects[i].RenderObject();
